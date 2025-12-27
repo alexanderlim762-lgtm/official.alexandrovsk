@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Администрация Округа - Документы</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="vhs-overlay"></div>
+
+    <div class="admin-square"></div>
+
+    <nav class="vhs-menu">
+        <ul>
+           <li><a href="index.html"class="active">ГЛАВНАЯ</a></li>
+            <li><a href="news.html" >НОВОСТИ</a></li>
+            <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
+            
+        </ul>
+    </nav>
+
+    <main class="content">
+        <div class="alert-container">
+            <h1>ДОКУМЕНТЫ</h1>
+           <li><a href="https://alexandrovsk.c6t.ru/%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0%20%D1%81%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B0%20%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D0%B0%20Alexanderovsk_Official.pdf" >Правила</a></li>
+          
+          
+            </div>
+            
+            <a href="https://www.youtube.com/@Alexandrovsk_Official" class="vhs-button" target="_blank">
+                СМОТРЕТЬ ЗАПИСИ С КАМЕР ►
+            </a>
+        </div>
+    </main>
+
+    <div class="footer-info">
+        <span>VCR PLAY 00:42:15</span>
+        <span>REC ●</span>
+    </div>
+    <script src="script.js">
+        // 1. Эффект случайных помех (Glitch)
+// Функция создает резкое кратковременное дрожание экрана, как на старой пленке
+function randomGlitch() {
+    const body = document.body;
+    
+    // С шансом 10% каждые 2 секунды создаем сильный глитч
+    setInterval(() => {
+        if (Math.random() > 0.9) {
+            body.style.filter = "invert(1) hue-rotate(90deg)"; // Инверсия цветов
+            setTimeout(() => {
+                body.style.filter = "none";
+            }, 50); // Длится всего 50 миллисекунд
+        }
+    }, 2000);
+}
+
+// 2. Имитация «зависания» кассеты
+function tapeJiggle() {
+    const content = document.querySelector('main');
+    if (content) {
+        setInterval(() => {
+            if (Math.random() > 0.95) {
+                content.style.transform = `translateX(${Math.random() * 10 - 5}px)`;
+                setTimeout(() => {
+                    content.style.transform = "translateX(0)";
+                }, 100);
+            }
+        }, 500);
+    }
+}
+
+// 3. Скрипт перенаправления (Имитация блокировки по IP)
+// Вы можете использовать это, чтобы пугать зрителей
+function checkAccess() {
+    // В реальном мире здесь был бы запрос к API для определения страны.
+    // Для нашего хоррора мы просто сделаем "пасхалку".
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('block')) {
+        window.location.href = "403.html";
+    }
+}
+
+// 4. Звуковой эффект (опционально)
+// Если пользователь кликает в любом месте, можно запустить тихий шум статики
+function initAudio() {
+    document.body.addEventListener('click', () => {
+        console.log("Сигнал стабилизирован...");
+        // Здесь можно добавить код для воспроизведения шума VCR
+    }, { once: true });
+}
+
+// Запуск всех функций
+window.onload = () => {
+    randomGlitch();
+    tapeJiggle();
+    checkAccess();
+    initAudio();
+};
+    </script>
+    
+
+</body>
+
+</html>
