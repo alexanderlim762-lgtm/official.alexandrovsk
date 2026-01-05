@@ -178,4 +178,42 @@ h1 {
     padding: 0 20px;
     font-size: 0.8rem;
     color: var(--text-muted);
+    
+}
+/* Контейнер для правил, как alert-container */
+.rules-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background: rgba(255, 255, 255, 0.05); /* прозрачный фон как alert */
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Заголовки внутри правил */
+.rules-container h1 {
+    font-size: 3rem;
+    color: #00ffff;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rules-container h2 {
+    font-size: 2rem;
+    color: #00ffea;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Списки */
+.rules-container ul {
+    list-style: disc;
+    padding-left: 30px;
+    line-height: 1.6;
+}
+
+.rules-container li {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
 }
