@@ -43,8 +43,40 @@
     <span>System: GovNet</span>
     <span>Status: Online</span>
 </div>
+    <script>
+async function checkCountryAccess() {
+    try {
+        // Используем бесплатный API для определения страны по IP
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const country = data.country_code; // ISO код страны, например "RU"
+
+        // Разрешенные страны
+        const allowed = ['RU', 'BY']; // Россия и Беларусь
+
+        if (!allowed.includes(country)) {
+            // Если страна не разрешена — скрываем контент
+            document.body.innerHTML = `
+                <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#600000; color:white; text-align:center; font-family:Roboto, sans-serif;">
+                    <div>
+                        <h1>Доступ запрещён</h1>
+                        <p>Сайт доступен только для посетителей из России и Беларуси.</p>
+                    </div>
+                </div>
+            `;
+        }
+    } catch (err) {
+        console.error('Ошибка определения страны:', err);
+        // В случае ошибки можно разрешить доступ по умолчанию
+    }
+}
+
+// Запускаем проверку
+checkCountryAccess();
+    </script>
 
 </body>
 </html>
+
 
 
