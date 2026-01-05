@@ -249,50 +249,50 @@ h1 {
     margin-bottom: 10px;
     font-size: 1.6rem;
 }
-/* Контент правил — текст как в документах */
+/* Контент правил — текст как в документе, компактно */
 .rules-text {
-    max-width: 800px;      /* ширина блока текста, как документ PDF */
-    margin: 50px auto;     /* центрирование блока по экрану */
+    max-width: 800px;      /* ширина блока текста */
+    margin: 50px auto;     /* центрируем блок по экрану */
     text-align: left;      /* текст слева, как в PDF */
-    line-height: 1.6;      /* удобный интерлиньяж */
-    font-size: 1.6rem;
-    font-weight: 400;      /* обычная толщина шрифта */
+    line-height: 1.5;      /* чуть плотнее для компактности */
+    font-size: 1.2rem;     /* компактный размер текста */
+    font-weight: 400;      /* обычный шрифт */
     color: #ffffff;        /* белый текст */
 }
 
-/* Заголовки */
+/* Заголовки — чуть выделены, но не огромные */
 .rules-text h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: 1.8rem;     /* небольшая крупность */
+    margin-bottom: 15px;
     color: #00ffff;
-    font-weight: 500;      /* чуть жирнее, но не слишком */
-    text-align: center;    /* заголовок по центру страницы */
+    font-weight: 500;      /* аккуратная полужирность */
+    text-align: center;
 }
 
 .rules-text h2 {
-    font-size: 2rem;
-    margin-top: 25px;
-    margin-bottom: 10px;
+    font-size: 1.4rem;     /* компактные подзаголовки */
+    margin-top: 20px;
+    margin-bottom: 8px;
     color: #00ffea;
-    font-weight: 500;      /* аккуратная полужирность */
+    font-weight: 500;
 }
 
 /* Списки */
 .rules-text ul {
     list-style: disc;
-    padding-left: 40px; /* стандартное смещение для списков */
-    margin-bottom: 20px;
+    padding-left: 30px;    /* аккуратные отступы */
+    margin-bottom: 15px;
 }
 
 .rules-text li {
-    margin-bottom: 10px;
-    font-weight: 400;     /* обычный текст, не жирный */
+    margin-bottom: 6px;
+    font-weight: 400;
 }
 
 /* Абзацы */
 .rules-text p {
-    margin-bottom: 20px;
-    font-weight: 400;     /* обычный текст */
+    margin-bottom: 10px;
+    font-weight: 400;
 }
 
 /* Футер */
@@ -302,6 +302,6 @@ h1 {
     width: 95%;
     display: flex;
     justify-content: space-between;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     opacity: 0.7;
 }
