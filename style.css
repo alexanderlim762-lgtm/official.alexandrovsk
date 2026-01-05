@@ -217,3 +217,35 @@ h1 {
     margin-bottom: 10px;
     font-size: 1.6rem;
 }
+/* Центрируем контейнер правил по горизонтали */
+.rules-container {
+    max-width: 900px;
+    margin: 50px auto; /* auto по бокам = центр */
+    padding: 30px 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    text-align: center; /* центрируем текст внутри */
+}
+
+/* Заголовки */
+.rules-container h1,
+.rules-container h2 {
+    text-align: center; /* заголовки по центру */
+}
+
+/* Списки с пунктами по центру */
+.rules-container ul {
+    list-style: none; /* убираем маркеры */
+    padding: 0;
+    line-height: 1.6;
+    display: inline-block; /* чтобы ul центрировался */
+    text-align: left; /* текст внутри списка слева, но блок по центру */
+    margin: 0 auto 20px auto; /* центрируем блок ul */
+}
+
+.rules-container li {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
