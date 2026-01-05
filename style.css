@@ -249,3 +249,48 @@ h1 {
     margin-bottom: 10px;
     font-size: 1.6rem;
 }
+/* Контент правил — текст как в документах */
+.rules-text {
+    max-width: 800px;      /* ширина блока текста, как документ PDF */
+    margin: 50px auto;     /* центрирование блока по экрану */
+    text-align: left;      /* текст слева, как в PDF */
+    line-height: 1.6;      /* удобный интерлиньяж */
+    font-size: 1.6rem;
+}
+
+/* Заголовки */
+.rules-text h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-align: center;    /* заголовок по центру страницы */
+}
+
+.rules-text h2 {
+    font-size: 2rem;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #00ffea;
+}
+
+/* Списки */
+.rules-text ul {
+    list-style: disc;
+    padding-left: 40px; /* стандартное смещение для списков */
+    margin-bottom: 20px;
+}
+
+.rules-text li {
+    margin-bottom: 10px;
+}
+
+/* Футер */
+.footer-info {
+    position: fixed;
+    bottom: 20px;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    opacity: 0.7;
+}
