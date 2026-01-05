@@ -2,108 +2,46 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <title>Администрация Округа</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Администрация Округа - VHS Archive</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="vhs-overlay"></div>
+<div class="admin-square"></div>
 
-    <div class="admin-square"></div>
+<nav class="vhs-menu">
+    <ul>
+        <li><a href="index.html" class="active">ГЛАВНАЯ</a></li>
+        <li><a href="news.html">НОВОСТИ</a></li>
+        <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
+    </ul>
+</nav>
 
-    <nav class="vhs-menu">
-        <ul>
-           <li><a href="index.html"class="active">ГЛАВНАЯ</a></li>
-            <li><a href="news.html" >НОВОСТИ</a></li>
-            <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
-            
-        </ul>
-    </nav>
+<main>
+    <div class="alert-container">
+        <h1>Администрация Округа</h1>
 
-    <main class="content">
-        <div class="alert-container">
-            <h1>АДМИНИСТРАЦИЯ ОКРУГА</h1>
-            <div class="message-box">
-                <p class="blink-text">ВНИМАНИЕ: САЙТ НЕ ЯВЛЯЕТСЯ НАСТОЯЩИХ РЕАЛЬНОЙ НОВОСТЕЙ А САЙТ ЯВЛЯЕТСЯ ВСЕ ПЕРСОНАЖИ ВЫМЫШЛЕННЫХ!</p>
-                <p>ОБНАРУЖЕНА НЕИЗВЕСТНАЯ АКТИВНОСТЬ В ЛЕСНОМ МАССИВЕ.</p>
-                <p>ВСЕМ ЖИТЕЛЯМ ОСТАВАТЬСЯ В СВОИХ ДОМАХ ДО ДАЛЬНЕЙШИХ УКАЗАНИЙ.</p>
-            </div>
-            
-            <a href="https://www.youtube.com/@Alexandrovsk_Official" class="vhs-button" target="_blank">
-                СМОТРЕТЬ ЗАПИСИ С КАМЕР ►
-            </a>
+        <div class="message-box">
+            <p class="blink-text">
+                ВНИМАНИЕ: САЙТ ЯВЛЯЕТСЯ ХУДОЖЕСТВЕННЫМ ПРОЕКТОМ. ВСЕ ПЕРСОНАЖИ ВЫМЫШЛЕНЫ.
+            </p>
+            <p>Обнаружена неизвестная активность в лесном массиве.</p>
+            <p>Жителям рекомендуется оставаться в помещениях до дальнейших уведомлений.</p>
         </div>
-    </main>
 
-    <div class="footer-info">
-        <span>VCR PLAY 00:42:15</span>
-        <span>REC ●</span>
+        <a class="vhs-button" href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">
+            Перейти к видеоматериалам
+        </a>
     </div>
-    <script src="script.js">
-        // 1. Эффект случайных помех (Glitch)
-// Функция создает резкое кратковременное дрожание экрана, как на старой пленке
-function randomGlitch() {
-    const body = document.body;
-    
-    // С шансом 10% каждые 2 секунды создаем сильный глитч
-    setInterval(() => {
-        if (Math.random() > 0.9) {
-            body.style.filter = "invert(1) hue-rotate(90deg)"; // Инверсия цветов
-            setTimeout(() => {
-                body.style.filter = "none";
-            }, 50); // Длится всего 50 миллисекунд
-        }
-    }, 2000);
-}
+</main>
 
-// 2. Имитация «зависания» кассеты
-function tapeJiggle() {
-    const content = document.querySelector('main');
-    if (content) {
-        setInterval(() => {
-            if (Math.random() > 0.95) {
-                content.style.transform = `translateX(${Math.random() * 10 - 5}px)`;
-                setTimeout(() => {
-                    content.style.transform = "translateX(0)";
-                }, 100);
-            }
-        }, 500);
-    }
-}
-
-// 3. Скрипт перенаправления (Имитация блокировки по IP)
-// Вы можете использовать это, чтобы пугать зрителей
-function checkAccess() {
-    // В реальном мире здесь был бы запрос к API для определения страны.
-    // Для нашего хоррора мы просто сделаем "пасхалку".
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('block')) {
-        window.location.href = "403.html";
-    }
-}
-
-// 4. Звуковой эффект (опционально)
-// Если пользователь кликает в любом месте, можно запустить тихий шум статики
-function initAudio() {
-    document.body.addEventListener('click', () => {
-        console.log("Сигнал стабилизирован...");
-        // Здесь можно добавить код для воспроизведения шума VCR
-    }, { once: true });
-}
-
-// Запуск всех функций
-window.onload = () => {
-    randomGlitch();
-    tapeJiggle();
-    checkAccess();
-    initAudio();
-};
-    </script>
-    
+<div class="footer-info">
+    <span>System: GovNet</span>
+    <span>Status: Online</span>
+</div>
 
 </body>
-
 </html>
