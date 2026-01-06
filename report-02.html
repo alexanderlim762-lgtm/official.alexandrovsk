@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новогоднее поздравление</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="admin-square"></div>
+
+<nav class="vhs-menu">
+    <ul>
+        <li><a href="index.html">ГЛАВНАЯ</a></li>
+        <li><a href="news.html">НОВОСТИ</a></li>
+        <li><a href="rules.html">ПРАВИЛА</a></li>
+        <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="report-container">
+        <h1>Новогоднее поздравление</h1>
+        <div class="status-stamp">СТАТУС: ОФИЦИАЛЬНО</div>
+        <div class="timestamp">Дата: 7 января 2026</div>
+
+        <div class="full-text">
+            <p>радостью сообщаем, что видео от Александроаский АО выйдет в феврале! Это будет интересный и захватывающий проект, который вы точно не захотите пропустить. Подготовьтесь к увлекательному контенту!</p>
+        <p>С уважением, Алекандровский АО</p>
+          <p><a href="https://www.youtube.com/@Alexandrovsk_Official">Алекандровский АО</p>
+        </div>
+
+        <a class="back-link" href="news.html">← Вернуться к архиву</a>
+    </div>
+</main>
+
+<div class="footer-info">
+    <span>Document ID: 02</span>
+    <span>GovNet Secure</span>
+</div>
+    <script>
+async function checkCountryAccess() {
+    try {
+        // Используем бесплатный API для определения страны по IP
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        const country = data.country_code; // ISO код страны, например "RU"
+
+        // Разрешенные страны
+        const allowed = ['RU', 'BY']; // Россия и Беларусь
+
+        if (!allowed.includes(country)) {
+            // Если страна не разрешена — скрываем контент
+            document.body.innerHTML = `
+                <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#600000; color:white; text-align:center; font-family:Roboto, sans-serif;">
+                    <div>
+                        <h1>Доступ запрещён</h1>
+                        <p>Сайт доступен только для посетителей из России и Беларуси.</p>
+                    </div>
+                </div>
+            `;
+        }
+    } catch (err) {
+        console.error('Ошибка определения страны:', err);
+        // В случае ошибки можно разрешить доступ по умолчанию
+    }
+}
+
+// Запускаем проверку
+checkCountryAccess();
+    </script>
+
+</body>
+</html>
+
