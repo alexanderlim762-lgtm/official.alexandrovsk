@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Служба поддержки - Александровск</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Верхнее меню -->
+    <nav class="top-menu">
+        <ul>
+            <li><a href="index.html">ГЛАВНАЯ</a></li>
+            <li><a href="news.html">НОВОСТИ</a></li>
+            <li><a href="support.html" class="active">ПОДДЕРЖКА</a></li>
+            <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
+        </ul>
+    </nav>
+
+    <div class="alert-container">
+        <h1>Служба поддержки</h1>
+        <p>Если у вас есть вопросы или вам нужна помощь, пожалуйста, заполните форму ниже, и мы обязательно с вами свяжемся.</p>
+
+        <form action="https://formsubmit.co/alexanderlim762@gmail.com" method="POST" id="support-form">
+            <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you">
+            <input type="hidden" name="_captcha" value="false">
+            <label for="username">Ваше имя:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Ваш email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Ваш вопрос:</label>
+            <textarea id="message" name="message" rows="5" required></textarea>
+
+            <button type="submit" class="submit-button">Отправить</button>
+        </form>
+    </div>
+
+    <div class="footer-info">
+        <span>VCR PLAY 00:42:15</span>
+        <span>REC ●</span>
+    </div>
+
+</body>
+</html>
