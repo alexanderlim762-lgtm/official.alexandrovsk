@@ -11,7 +11,7 @@
 <body>
 
     <!-- Верхнее меню -->
-    <nav class="top-menu">
+    <nav class="vhs-menu">
         <ul>
             <li><a href="index.html">ГЛАВНАЯ</a></li>
             <li><a href="news.html">НОВОСТИ</a></li>
@@ -20,25 +20,26 @@
         </ul>
     </nav>
 
-    <div class="alert-container">
-        <h1>Служба поддержки</h1>
-        <p>Если у вас есть вопросы или вам нужна помощь, пожалуйста, заполните форму ниже, и мы обязательно с вами свяжемся.</p>
+    <main>
+        <div class="alert-container">
+            <h1>Служба поддержки</h1>
+            <p>Если у вас есть вопросы или проблемы, заполните форму ниже. Мы свяжемся с вами как можно быстрее.</p>
 
-        <form action="https://formsubmit.co/alexanderlim762@gmail.com" method="POST" id="support-form">
-            <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you">
-            <input type="hidden" name="_captcha" value="false">
-            <label for="username">Ваше имя:</label>
-            <input type="text" id="username" name="username" required>
+            <form action="https://formsubmit.co/alexanderlim762@gmail.com" method="POST" id="support-form">
+                <!-- Перенаправление после отправки -->
+                <input type="hidden" name="_next" value="https://alexandrovsk.c6t.ru/thank-you.html">
+                <input type="hidden" name="_captcha" value="false">
 
-            <label for="email">Ваш email:</label>
-            <input type="email" id="email" name="email" required>
+                <label for="username">Ваш никнейм Telegram:</label>
+                <input type="text" id="username" name="username" placeholder="Например: @username" required>
 
-            <label for="message">Ваш вопрос:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
+                <label for="message">Ваш вопрос:</label>
+                <textarea id="message" name="message" rows="5" placeholder="Опишите вашу проблему" required></textarea>
 
-            <button type="submit" class="submit-button">Отправить</button>
-        </form>
-    </div>
+                <button type="submit" class="vhs-button">Отправить</button>
+            </form>
+        </div>
+    </main>
 
     <div class="footer-info">
         <span>VCR PLAY 00:42:15</span>
