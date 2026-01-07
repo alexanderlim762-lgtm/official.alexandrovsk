@@ -25,18 +25,15 @@
             <h1>Служба поддержки</h1>
             <p>Если у вас есть вопросы или проблемы, заполните форму ниже. Мы свяжемся с вами как можно быстрее.</p>
 
-            <form action="https://formsubmit.co/alexanderlim762@gmail.com" method="POST" id="support-form">
-                <!-- Перенаправление после отправки -->
-                <input type="hidden" name="_next" value="https://alexandrovsk.c6t.ru/thank-you.html">
-                <input type="hidden" name="_captcha" value="false">
-
+            <!-- Форма -->
+            <form id="support-form" class="support-form" method="POST">
                 <label for="username">Ваш никнейм Telegram:</label>
-                <input type="text" id="username" name="username" placeholder="Например: @username" required>
+                <input type="text" id="username" name="username" placeholder="@username" required>
 
                 <label for="message">Ваш вопрос:</label>
                 <textarea id="message" name="message" rows="5" placeholder="Опишите вашу проблему" required></textarea>
 
-                <button type="submit" class="vhs-button">Отправить</button>
+                <button type="submit" class="vhs-button">ОТПРАВИТЬ</button>
             </form>
         </div>
     </main>
@@ -45,6 +42,35 @@
         <span>VCR PLAY 00:42:15</span>
         <span>REC ●</span>
     </div>
+
+    <!-- Скрипт для скрытой отправки -->
+    <script>
+        const form = document.getElementById('support-form');
+        const email = "alexanderlim762@gmail.com"; // email скрыт в JS
+        const nextPage = "https://alexandrovsk.c6t.ru/thank-you.html";
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault(); // предотвращаем стандартную отправку
+
+            const formData = new FormData(form);
+            formData.append('_next', nextPage);
+            formData.append('_captcha', 'false');
+
+            // Отправка через fetch к formsubmit
+            fetch('https://formsubmit.co/' + email, {
+                method: 'POST',
+                body: formData
+            })
+            .then(() => {
+                alert('Ваша заявка отправлена!');
+                form.reset();
+            })
+            .catch((err) => {
+                alert('Ошибка отправки. Попробуйте ещё раз.');
+                console.error(err);
+            });
+        });
+    </script>
 
 </body>
 </html>
