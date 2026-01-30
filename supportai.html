@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Служба поддержки Александровского АО</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== НАВИГАЦИЯ ===== -->
+<nav class="vhs-menu">
+  <ul>
+    <li><a href="index.html">ГЛАВНАЯ</a></li>
+    <li><a href="news.html">НОВОСТИ</a></li>
+    <li><a href="support.html" class="active">ПОДДЕРЖКА</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="alert-container">
+    <h1>Поддержка Александровского АО</h1>
+    <p>Если вы хотите восстановиться в чате Telegram, нажмите кнопку ниже:</p>
+    <button id="appealBtn" class="vhs-button">Я хочу вернуться в чат</button>
+  </div>
+
+  <div id="appealForm" style="display:none; margin-top:20px; text-align:center;">
+    <label for="telegramId">Введите ваш Telegram ID:</label><br>
+    <input type="text" id="telegramId" placeholder="Ваш Telegram ID" style="padding:10px; margin-top:10px;"><br>
+    <button id="submitAppeal" class="vhs-button" style="margin-top:15px;">Отправить апелляцию</button>
+  </div>
+
+  <div id="appealResult" style="text-align:center; margin-top:20px;"></div>
+</main>
+
+<!-- ===== ФУТЕР ===== -->
+<div class="footer-info">
+  <span>© Александровский АО</span>
+  <span>Поддержка: alexandrovsk.c6t.ru/support.html</span>
+</div>
+
+<script>
+const appealBtn = document.getElementById('appealBtn');
+const appealForm = document.getElementById('appealForm');
+const submitAppeal = document.getElementById('submitAppeal');
+const appealResult = document.getElementById('appealResult');
+
+// Запрещённые слова для проверки апелляции
+const forbiddenWords = ["хак", "взлом", "спам", "оскорбление"];
+
+// Пример истории сообщений пользователя в чате (эмуляция)
+const chatHistory = [
+  "Привет всем", 
+  "Скоро видео", 
+  "Хороший день"
+];
+
+appealBtn.addEventListener('click', () => {
+  appealForm.style.display = "block";
+  appealBtn.style.display = "none";
+});
+
+submitAppeal.addEventListener('click', () => {
+  const telegramId = document.getElementById('telegramId').value.trim();
+  if(!telegramId) {
+    appealResult.textContent = "Пожалуйста, введите ваш Telegram ID.";
+    return;
+  }
+
+  // Проверка на нарушения
+  const violation = chatHistory.some(msg => forbiddenWords.some(word => msg.toLowerCase().includes(word)));
+
+  if(violation) {
+    appealResult.textContent = "Апелляция отклонена: вы нарушали правила в чате.";
+  } else {
+    appealResult.textContent = "Апелляция принята! Сигнал будет отправлен модератору Telegram...";
+
+    // Отправка сигнала на бота-модератору через сервер
+    fetch("/sendToModerator", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        telegram_id: telegramId,
+        action: "return",
+        chat_id: "@Official_AlexandrovskChat",
+        moderator_bot_token: "8512526317:AAEwqOxu1OpYuJp2KDrwt_Z1m_O6vnbl_Co"
+      })
+    }).then(res => res.json())
+      .then(data => console.log("Сигнал модератору отправлен:", data))
+      .catch(err => console.error(err));
+  }
+});
+</script>
+
+</body>
+</html>
