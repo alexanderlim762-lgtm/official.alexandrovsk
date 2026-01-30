@@ -1,34 +1,36 @@
 :root {
-    --bg-main: #0e1320;
-    --bg-card: #151b2e;
+    --bg-main: #f6f7fb;
+    --bg-card: #ffffff;
     --accent: #3b82f6;
-    --accent-soft: #1e40af;
-    --text-main: #e5e7eb;
-    --text-muted: #9ca3af;
+    --accent-soft: #2563eb;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
     --danger: #ef4444;
     --success: #22c55e;
+    --border-soft: rgba(0,0,0,0.08);
 }
 
+/* ===== ОСНОВА ===== */
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(180deg, #0e1320, #0b1020);
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-main);
     color: var(--text-main);
     min-height: 100vh;
 }
 
-/* ===== НАВИГАЦИЯ ===== */
+/* ===== ВЕРХНЕЕ МЕНЮ ===== */
 .vhs-menu {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(14, 19, 32, 0.9);
+    background: rgba(255,255,255,0.9);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid var(--border-soft);
     z-index: 100;
 }
 
@@ -38,13 +40,15 @@ body {
     justify-content: center;
     gap: 40px;
     margin: 0;
-    padding: 16px;
+    padding: 18px;
 }
 
 .vhs-menu a {
     color: var(--text-muted);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .vhs-menu a.active,
@@ -55,12 +59,12 @@ body {
 /* ===== ЛОГО ===== */
 .admin-square {
     position: fixed;
-    top: 14px;
+    top: 16px;
     left: 20px;
     width: 36px;
     height: 36px;
     background: var(--accent);
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
@@ -70,56 +74,100 @@ main {
     justify-content: center;
 }
 
+/* ===== КОНТЕЙНЕРЫ ===== */
 .alert-container,
 .news-container,
-.report-container {
+.report-container,
+.rules-container {
     width: 100%;
     max-width: 900px;
-    padding: 20px;
-}
-
-/* ===== ЗАГОЛОВКИ ===== */
-h1 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
+    padding: 24px;
 }
 
 /* ===== КАРТОЧКИ ===== */
 .message-box,
 .news-item,
-.report-container {
+.report-container,
+.alert-container,
+.rules-container {
     background: var(--bg-card);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 28px;
+    border: 1px solid var(--border-soft);
+}
+
+/* ===== ЗАГОЛОВКИ ===== */
+h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-weight: 600;
 }
 
 /* ===== ТЕКСТ ===== */
-.message-box p {
-    font-size: 1.1rem;
-    line-height: 1.6;
+p {
+    line-height: 1.7;
+    font-size: 1.05rem;
 }
 
 .blink-text {
     color: var(--danger);
-    font-weight: 700;
+    font-weight: 600;
 }
 
-/* ===== КНОПКА ===== */
-.vhs-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 14px 28px;
+/* ===== КНОПКИ ===== */
+.vhs-button,
+button {
+    padding: 14px 30px;
     background: var(--accent);
     color: white;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 500;
+    border-radius: 14px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
-.vhs-button:hover {
+.vhs-button:hover,
+button:hover {
     background: var(--accent-soft);
+}
+
+/* ===== ФОРМЫ ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+input,
+textarea {
+    background: #f9fafb;
+    color: var(--text-main);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent);
 }
 
 /* ===== НОВОСТИ ===== */
@@ -128,283 +176,24 @@ h1 {
     font-size: 0.9rem;
 }
 
-.news-item h2 {
-    margin: 10px 0;
-}
-
 .read-more {
     color: var(--accent);
+    font-weight: 600;
     text-decoration: none;
-    font-weight: 500;
 }
 
 .read-more:hover {
     text-decoration: underline;
 }
 
-/* ===== ОТЧЁТ ===== */
-.status-stamp {
-    color: var(--danger);
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.timestamp {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.full-text {
-    line-height: 1.6;
-}
-
-.back-link {
-    color: var(--success);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.back-link:hover {
-    text-decoration: underline;
-}
-
 /* ===== ФУТЕР ===== */
 .footer-info {
     position: fixed;
-    bottom: 10px;
+    bottom: 12px;
     width: 100%;
-    display: flex;
-    justify-content: space-between;
     padding: 0 20px;
-    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    
-}
-/* Контейнер для правил, как alert-container */
-.rules-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 30px 40px;
-    background: rgba(255, 255, 255, 0.05); /* прозрачный фон как alert */
-    border: 1px solid white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-/* Заголовки внутри правил */
-.rules-container h1 {
-    font-size: 3rem;
-    color: #00ffff;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.rules-container h2 {
-    font-size: 2rem;
-    color: #00ffea;
-    margin-top: 25px;
-    margin-bottom: 10px;
-}
-
-/* Списки */
-.rules-container ul {
-    list-style: disc;
-    padding-left: 30px;
-    line-height: 1.6;
-}
-
-.rules-container li {
-    margin-bottom: 10px;
-    font-size: 1.6rem;
-}
-/* Центрируем контейнер правил по горизонтали */
-.rules-container {
-    max-width: 900px;
-    margin: 50px auto; /* auto по бокам = центр */
-    padding: 30px 40px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid white;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    text-align: center; /* центрируем текст внутри */
-}
-
-/* Заголовки */
-.rules-container h1,
-.rules-container h2 {
-    text-align: center; /* заголовки по центру */
-}
-
-/* Списки с пунктами по центру */
-.rules-container ul {
-    list-style: none; /* убираем маркеры */
-    padding: 0;
-    line-height: 1.6;
-    display: inline-block; /* чтобы ul центрировался */
-    text-align: left; /* текст внутри списка слева, но блок по центру */
-    margin: 0 auto 20px auto; /* центрируем блок ul */
-}
-
-.rules-container li {
-    margin-bottom: 10px;
-    font-size: 1.6rem;
-}
-    /* Контент правил — текст как в документе, компактно */
-.rules-text {
-    max-width: 800px;      /* ширина блока текста */
-    margin: 50px auto;     /* центрирование блока по экрану */
-    text-align: left;      /* текст слева, как в PDF */
-    line-height: 1.5;      /* компактный интерлиньяж */
-    font-size: 1.2rem;     /* компактный размер текста */
-    font-weight: 400;      /* обычный шрифт */
-    color: #ffffff;        /* белый текст */
-}
-
-/* Заголовки — белые, не большие */
-.rules-text h1 {
-    font-size: 1.8rem;     
-    margin-bottom: 15px;
-    color: #ffffff;         /* белый */
-    font-weight: 500;      
-    text-align: center;    
-}
-
-.rules-text h2 {
-    font-size: 1.4rem;     
-    margin-top: 20px;
-    margin-bottom: 8px;
-    color: #ffffff;         /* белый */
-    font-weight: 500;      
-}
-
-/* Списки */
-.rules-text ul {
-    list-style: disc;
-    padding-left: 30px;    
-    margin-bottom: 15px;
-}
-
-.rules-text li {
-    margin-bottom: 6px;
-    font-weight: 400;
-}
-
-/* Абзацы */
-.rules-text p {
-    margin-bottom: 10px;
-    font-weight: 400;
-}
-
-/* Футер */
-.footer-info {
-    position: fixed;
-    bottom: 20px;
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.2rem;
-    opacity: 0.7;
-}
-/* Стиль для страницы службы поддержки */
-.alert-container {
-    text-align: center;
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
-
-.alert-container h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #0000aa; /* Синий текст */
-}
-
-.alert-container p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #333;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-form input, form textarea {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background-color: #0000aa;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-form button:hover {
-    background-color: #000099;
-}
-
-/* Нижняя информация */
-.footer-info {
-    position: fixed;
-    bottom: 20px;
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.8rem;
-    opacity: 0.7;
-}
-/* ===== Форма поддержки ===== */
-.support-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.support-form label {
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: var(--text-main);
-}
-
-.support-form input,
-.support-form textarea {
-    background: var(--bg-card);
-    color: var(--text-main);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
-    padding: 12px 15px;
-    font-size: 1rem;
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
-    resize: none;
-    transition: 0.2s;
-}
-
-.support-form input:focus,
-.support-form textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
-}
-
-.support-form .vhs-button {
-    width: 50%;
-    align-self: center;
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: 600;
-}
+}    
