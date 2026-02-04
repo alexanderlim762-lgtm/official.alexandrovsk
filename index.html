@@ -8,56 +8,23 @@
 </head>
 <body>
 
-<!-- Верхнее меню -->
 <nav class="vhs-menu">
-  <ul>
-    <li><a href="index.html" class="active">Главная</a></li>
-    <li><a href="news.html">Новости</a></li>
-    <li><a href="rules.html">Правила</a></li>
-    <li><a href="support.html">Поддержка</a></li>
-  </ul>
-  <div class="user-info">
-    <span id="loginBtn">Войти</span>
-  </div>
+    <ul>
+        <li><a href="index.html" class="active">Главная</a></li>
+        <li><a href="news.html">Новости</a></li>
+        <li><a href="rules.html">Правила</a></li>
+        <li><a href="support.html">Поддержка</a></li>
+    </ul>
+    <div class="user-info"></div>
 </nav>
 
 <main>
-  <div class="alert-container">
-    <h1>Добро пожаловать на сайт Александровского АО!</h1>
-    <p>На нашем сайте вы можете создавать аккаунты, проекты, монстров и общаться с другими пользователями.</p>
-
-    <div id="welcomeSection"></div>
-  </div>
+    <div class="alert-container">
+        <h1>Добро пожаловать!</h1>
+        <p>Создавайте аккаунты, проекты, монстров и общайтесь с друзьями.</p>
+    </div>
 </main>
 
-<script>
-// Проверяем текущего пользователя
-let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-const loginBtn = document.getElementById('loginBtn');
-const welcomeSection = document.getElementById('welcomeSection');
-
-function updateUI(){
-    if(currentUser){
-        loginBtn.textContent = currentUser.nickname;
-        loginBtn.onclick = () => window.location.href = 'profile.html';
-
-        welcomeSection.innerHTML = `
-            <p>Привет, <strong>${currentUser.nickname}</strong>!</p>
-            <p>Ваш аватар:</p>
-            <img src="${currentUser.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" 
-                 alt="Аватар" style="width:120px;height:120px;border-radius:50%;">
-        `;
-    } else {
-        loginBtn.textContent = "Войти";
-        loginBtn.onclick = () => window.location.href = 'login.html';
-        welcomeSection.innerHTML = `
-            <p>Вы не авторизованы. Пожалуйста, <a href="login.html">войдите или создайте аккаунт</a>.</p>
-        `;
-    }
-}
-
-updateUI();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
