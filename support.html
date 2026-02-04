@@ -11,14 +11,48 @@
 <body>
 
     <!-- Верхнее меню -->
-    <nav class="vhs-menu">
-        <ul>
-            <li><a href="index.html">ГЛАВНАЯ</a></li>
-            <li><a href="news.html">НОВОСТИ</a></li>
-            <li><a href="support.html" class="active">ПОДДЕРЖКА</a></li>
-            <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
-        </ul>
-    </nav>
+    <div class="vhs-menu">
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="news.html">Новости</a></li>
+        <li><a href="rules.html">Правила</a></li>
+        <li><a href="updates.html">Обновления</a></li>
+        <li><a href="plays.html">Проекты</a></li>
+    </ul>
+    <div>
+        <img id="menu-avatar" class="menu-avatar" src="" alt="" onclick="goToProfile()">
+        <span id="menu-login" class="menu-login" onclick="goToLogin()">Войти</span>
+    </div>
+</div>
+
+<script>
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+const avatarEl = document.getElementById('menu-avatar');
+const loginEl = document.getElementById('menu-login');
+
+function updateMenu(){
+    if(currentUser){
+        avatarEl.src = currentUser.avatar || 'default-avatar.png';
+        avatarEl.style.display = 'inline-block';
+        loginEl.style.display = 'none';
+    } else {
+        avatarEl.style.display = 'none';
+        loginEl.style.display = 'inline-block';
+    }
+}
+
+function goToProfile(){
+    if(currentUser) window.location.href = 'profile.html';
+}
+
+function goToLogin(){
+    window.location.href = 'login.html';
+}
+
+updateMenu();
+</script>
+    
 
     <main>
         <div class="alert-container">
