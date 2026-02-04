@@ -1,15 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Вход / Регистрация</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 <main>
-    <div class="alert-container">
-        <h1>Вход в аккаунт</h1>
-        <form id="loginForm">
-            <label for="nickname">Никнейм</label>
-            <input type="text" id="nickname" required>
+  <div class="alert-container">
+    <h1>Авторизация</h1>
 
-            <label for="password">Пароль</label>
-            <input type="password" id="password" required>
-
-            <button type="submit" class="vhs-button">Войти</button>
-        </form>
-        <p>Нет аккаунта? <a href="register.html">Зарегистрироваться</a></p>
-    </div>
+    <!-- Форма входа / регистрации -->
+    <form id="authForm">
+      <input type="text" id="nickname" placeholder="Введите никнейм" required>
+      <button type="submit">Войти / Создать аккаунт</button>
+    </form>
+  </div>
 </main>
+
+<script>
+document.getElementById('authForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const nickname = document.getElementById('nickname').value.trim();
+    if(!nickname) return alert("Введите никнейм");
+
+    // Получаем список пользователей из localStorage
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+
+    // Проверяем, есть ли уже такой ник
+    let user = users.find(u => u.nickname === nickname);
+
+    if(!user){
+        // Если нет, создаём новый аккаунт
+        user = {nickname: nickname, avatar: null};
+        users.push(user);
+        localStorage.setItem('users', JSON.stringify(users));
+        alert("Аккаунт создан!");
+    } else {
+        alert("Вход выполнен!");
+    }
+
+    // Сохраняем текущего пользователя
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
+    // Перенаправляем на главную
+    window.location.href = "index.html";
+});
+</script>
+</body>
+</html>
