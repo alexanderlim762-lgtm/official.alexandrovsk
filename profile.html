@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Профиль</title>
 <link rel="stylesheet" href="style.css">
+<style>
+/* Минимальные стили для примера */
+.profile-container { max-width: 900px; margin: 100px auto; padding: 20px; background: var(--bg-card); border-radius: 16px; }
+.profile-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; }
+.profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.profile-info input, .profile-info textarea { width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+.friend-list li, #search-results li { margin-bottom: 10px; list-style: none; }
+.vhs-button { padding: 6px 12px; border: none; border-radius: 6px; background: var(--accent); color: white; cursor: pointer; margin-left: 5px; }
+</style>
 </head>
 <body>
 
@@ -24,16 +33,12 @@
 </div>
 
 <main>
-<div class="profile-header">
-    <!-- Если аватар загружен — отображаем его, иначе значок человека -->
-    <img id="profile-avatar" class="profile-avatar" src="" alt="Аватар">
-    <div>
+<div class="profile-container">
+
+    <div class="profile-header">
+        <img id="profile-avatar" class="profile-avatar" src="" alt="Аватар">
         <button class="vhs-button" onclick="logout()">Выйти из аккаунта</button>
     </div>
-</div>
-
-<label>Загрузить аватар:</label>
-<input type="file" id="avatar-input" accept="image/*">
 
     <div class="profile-info">
         <label>Никнейм:</label>
@@ -51,20 +56,113 @@
         <input type="file" id="avatar-input" accept="image/*">
     </div>
 
+    <h2>Друзья</h2>
+    <ul id="friend-list"></ul>
+
     <h2>Поиск пользователей</h2>
-<input type="text" id="search-input" placeholder="Введите никнейм">
-<ul id="search-results"></ul>
+    <input type="text" id="search-input" placeholder="Введите никнейм">
+    <ul id="search-results"></ul>
 
 </div>
 </main>
+
 <script>
+// ===== Меню и текущий пользователь =====
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+const avatarEl = document.getElementById('menu-avatar');
+const loginEl = document.getElementById('menu-login');
+
+function updateMenu(){
+    if(currentUser){
+        avatarEl.src = currentUser.avatar || 'default-avatar.png';
+        avatarEl.style.display = 'inline-block';
+        loginEl.style.display = 'none';
+    } else {
+        avatarEl.style.display = 'none';
+        loginEl.style.display = 'inline-block';
+    }
+}
+
+function goToProfile(){ if(currentUser) window.location.href = 'profile.html'; }
+function goToLogin(){ window.location.href = 'login.html'; }
+
+updateMenu();
+
+// ===== Проверка авторизации =====
+if(!currentUser){
+    alert('Пожалуйста, войдите в аккаунт!');
+    window.location.href = 'login.html';
+}
+
+// ===== Профиль =====
+const profileAvatar = document.getElementById('profile-avatar');
+const nicknameInput = document.getElementById('nickname');
+const aboutInput = document.getElementById('about');
+const youtubeInput = document.getElementById('youtube');
+const telegramInput = document.getElementById('telegram');
+const discordInput = document.getElementById('discord');
+const avatarInput = document.getElementById('avatar-input');
+const friendListEl = document.getElementById('friend-list');
 const searchInput = document.getElementById('search-input');
 const searchResultsEl = document.getElementById('search-results');
 
-// Симуляция "базы всех пользователей" через localStorage
-let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
+// Заполнение данных
+nicknameInput.value = currentUser.nickname;
+aboutInput.value = currentUser.about || '';
+youtubeInput.value = currentUser.youtube || '';
+telegramInput.value = currentUser.telegram || '';
+discordInput.value = currentUser.discord || '';
+profileAvatar.src = currentUser.avatar || 'default-avatar.png';
 
-// Поиск по никнейму
+// Загрузка аватара
+avatarInput.addEventListener('change', function(){
+    const file = this.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            profileAvatar.src = e.target.result;
+            avatarEl.src = e.target.result; // верхнее меню
+            currentUser.avatar = e.target.result;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Сохранение полей
+aboutInput.addEventListener('input', () => { currentUser.about = aboutInput.value; localStorage.setItem('currentUser', JSON.stringify(currentUser)); });
+youtubeInput.addEventListener('input', () => { currentUser.youtube = youtubeInput.value; localStorage.setItem('currentUser', JSON.stringify(currentUser)); });
+telegramInput.addEventListener('input', () => { currentUser.telegram = telegramInput.value; localStorage.setItem('currentUser', JSON.stringify(currentUser)); });
+discordInput.addEventListener('input', () => { currentUser.discord = discordInput.value; localStorage.setItem('currentUser', JSON.stringify(currentUser)); });
+
+// ===== Выйти =====
+function logout(){
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+}
+
+// ===== Друзья =====
+if(!currentUser.friends) currentUser.friends = [];
+if(!currentUser.requests) currentUser.requests = [];
+localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+function renderFriends(){
+    friendListEl.innerHTML = '';
+    currentUser.friends.forEach(friend => {
+        const li = document.createElement('li');
+        li.textContent = friend;
+        friendListEl.appendChild(li);
+    });
+}
+renderFriends();
+
+// ===== Все пользователи =====
+let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
+if(!allUsers.includes(currentUser)) allUsers.push(currentUser);
+localStorage.setItem('allUsers', JSON.stringify(allUsers));
+
+// ===== Поиск пользователей =====
 searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase();
     searchResultsEl.innerHTML = '';
@@ -78,37 +176,28 @@ searchInput.addEventListener('input', () => {
         const addBtn = document.createElement('button');
         addBtn.textContent = "Добавить в друзья";
         addBtn.classList.add('vhs-button');
-        addBtn.style.marginLeft = '10px';
-
-        addBtn.addEventListener('click', () => {
-            sendFriendRequest(user.nickname);
-        });
+        addBtn.onclick = () => sendFriendRequest(user.nickname);
 
         li.appendChild(addBtn);
         searchResultsEl.appendChild(li);
     });
 });
 
-// ================== Заявка в друзья ==================
+// ===== Заявка в друзья =====
 function sendFriendRequest(friendNickname){
-    // Найти пользователя в allUsers
     let friend = allUsers.find(u => u.nickname === friendNickname);
     if(!friend.requests) friend.requests = [];
-
-    // Проверка, что заявка ещё не отправлена
     if(friend.requests.includes(currentUser.nickname)){
         alert("Вы уже отправили заявку этому пользователю");
         return;
     }
-
     friend.requests.push(currentUser.nickname);
     localStorage.setItem('allUsers', JSON.stringify(allUsers));
     alert("Заявка отправлена!");
 }
 
-// ================== Обработка входящих заявок ==================
+// ===== Обработка входящих заявок =====
 function renderFriendRequests(){
-    if(!currentUser.requests) currentUser.requests = [];
     currentUser.requests.forEach(req => {
         const li = document.createElement('li');
         li.textContent = req;
@@ -116,9 +205,7 @@ function renderFriendRequests(){
         const acceptBtn = document.createElement('button');
         acceptBtn.textContent = "Принять";
         acceptBtn.classList.add('vhs-button');
-        acceptBtn.style.marginLeft = '5px';
-
-        acceptBtn.addEventListener('click', () => {
+        acceptBtn.onclick = () => {
             if(!currentUser.friends) currentUser.friends = [];
             currentUser.friends.push(req);
 
@@ -133,29 +220,24 @@ function renderFriendRequests(){
             localStorage.setItem('allUsers', JSON.stringify(allUsers));
             renderFriendRequests();
             renderFriends();
-        });
+        };
 
         const rejectBtn = document.createElement('button');
         rejectBtn.textContent = "Отклонить";
         rejectBtn.classList.add('vhs-button');
-        rejectBtn.style.marginLeft = '5px';
-
-        rejectBtn.addEventListener('click', () => {
+        rejectBtn.onclick = () => {
             currentUser.requests = currentUser.requests.filter(r => r !== req);
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             renderFriendRequests();
-        });
+        };
 
         li.appendChild(acceptBtn);
         li.appendChild(rejectBtn);
         searchResultsEl.appendChild(li);
     });
 }
-
-// Рендер друзей и заявок при загрузке
-renderFriends();
 renderFriendRequests();
-
 </script>
+
 </body>
 </html>
