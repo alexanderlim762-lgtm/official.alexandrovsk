@@ -1,22 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Профиль</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Верхнее меню -->
+<nav class="vhs-menu">
+  <ul>
+    <li><a href="index.html">Главная</a></li>
+    <li><a href="news.html">Новости</a></li>
+    <li><a href="rules.html">Правила</a></li>
+    <li><a href="support.html">Поддержка</a></li>
+  </ul>
+  <div class="user-info">
+    <span id="loginBtn">Войти</span>
+  </div>
+</nav>
+
 <main>
-    <div class="alert-container" id="profileBox">
-        <h1>Профиль</h1>
-        <p id="welcome"></p>
-        <button onclick="logout()" class="vhs-button">Выйти</button>
+  <div class="alert-container">
+    <h1>Профиль пользователя</h1>
+    <div id="profileInfo">
+      <!-- Здесь будет никнейм и аватар -->
     </div>
+
+    <form id="avatarForm">
+      <label for="avatar">Сменить аватар (URL изображения):</label>
+      <input type="text" id="avatar" placeholder="Вставьте URL аватара">
+      <button type="submit" class="vhs-button">Сохранить аватар</button>
+    </form>
+  </div>
 </main>
 
 <script>
-const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-if (!currentUser) {
-    alert("Сначала войдите в аккаунт");
-    window.location.href = "login.html";
-} else {
-    document.getElementById('welcome').innerText = `Привет, ${currentUser.nickname}!`;
+// Получаем текущего пользователя
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+const loginBtn = document.getElementById('loginBtn');
+const profileInfo = document.getElementById('profileInfo');
+
+function updateProfileUI(){
+    if(currentUser){
+        loginBtn.textContent = currentUser.nickname;
+        loginBtn.onclick = () => window.location.href = 'profile.html';
+        profileInfo.innerHTML = `
+            <img src="${currentUser.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" 
+                 alt="Аватар" style="width:100px;height:100px;border-radius:50%;margin-bottom:10px;">
+            <p>Никнейм: <strong>${currentUser.nickname}</strong></p>
+        `;
+    } else {
+        loginBtn.textContent = "Войти";
+        loginBtn.onclick = () => window.location.href = 'login.html';
+        profileInfo.innerHTML = "<p>Вы не авторизованы</p>";
+    }
 }
 
-function logout() {
-    localStorage.removeItem('currentUser');
-    window.location.href = "login.html";
-}
+updateProfileUI();
+
+// Сохраняем аватар
+document.getElementById('avatarForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const avatarURL = document.getElementById('avatar').value.trim();
+    if(!avatarURL) return alert("Введите URL аватара");
+    currentUser.avatar = avatarURL;
+
+    // Обновляем пользователя в localStorage
+    let users = JSON.parse(localStorage.getItem('users') || '[]');
+    let index = users.findIndex(u => u.nickname === currentUser.nickname);
+    if(index !== -1) users[index].avatar = avatarURL;
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+    updateProfileUI();
+    alert("Аватар обновлён!");
+});
 </script>
+
+</body>
+</html>
