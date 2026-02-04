@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+loop<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -10,9 +10,11 @@
 <main>
 <div class="card">
     <h1>Войти</h1>
-    <input type="email" id="login-email" placeholder="Электронная почта">
-    <input type="password" id="login-password" placeholder="Пароль">
-    <button onclick="loginUser()">Войти</button>
+    <form method="post" action="login.php">
+    <input type="email" id="login-email" name="email" placeholder="Электронная почта" required>
+    <input type="password" id="login-password" name="password" placeholder="Пароль" required>
+    <button type="submit">Войти</button>
+    </form>
 
     <h2>Или зарегистрироваться</h2>
     <input type="email" id="reg-email" placeholder="Электронная почта">
