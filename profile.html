@@ -6,78 +6,46 @@
 <title>Профиль</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-<!-- Верхнее меню -->
-<nav class="vhs-menu">
-  <ul>
-    <li><a href="index.html">Главная</a></li>
-    <li><a href="news.html">Новости</a></li>
-    <li><a href="rules.html">Правила</a></li>
-    <li><a href="support.html">Поддержка</a></li>
-  </ul>
-  <div class="user-info">
-    <span id="loginBtn">Войти</span>
-  </div>
-</nav>
+<body onload="loadProfile()">
+<div class="vhs-menu">
+    <a href="index.html">Главная</a>
+    <a href="news.html">Новости</a>
+    <a href="rules.html">Правила</a>
+    <div>
+        <img id="menu-avatar" class="menu-avatar" src="" alt="" onclick="window.location.href='profile.html'">
+        <span id="menu-login" class="menu-login" onclick="window.location.href='login.html'">Войти</span>
+    </div>
+</div>
 
 <main>
-  <div class="alert-container">
-    <h1>Профиль пользователя</h1>
-    <div id="profileInfo">
-      <!-- Здесь будет никнейм и аватар -->
+<div class="profile-container">
+    <div class="profile-header">
+        <img id="profile-avatar" class="profile-avatar" src="default-avatar.png" alt="Аватар">
+        <input type="file" id="profile-avatar-input" accept="image/*">
+        <button onclick="logoutUser()">Выйти</button>
+    </div>
+    <div class="profile-info">
+        <input type="text" id="profile-nick" placeholder="Никнейм">
+        <textarea id="profile-about" placeholder="О себе"></textarea>
+        <input type="text" id="link-youtube" placeholder="YouTube">
+        <input type="text" id="link-telegram" placeholder="Telegram">
+        <input type="text" id="link-discord" placeholder="Discord">
+        <button onclick="saveProfile()">Сохранить профиль</button>
     </div>
 
-    <form id="avatarForm">
-      <label for="avatar">Сменить аватар (URL изображения):</label>
-      <input type="text" id="avatar" placeholder="Вставьте URL аватара">
-      <button type="submit" class="vhs-button">Сохранить аватар</button>
-    </form>
-  </div>
+    <h2>Поиск пользователей</h2>
+    <input type="text" id="search-nick" placeholder="Введите никнейм">
+    <button onclick="searchUser()">Поиск</button>
+    <ul id="search-results"></ul>
+
+    <h2>Друзья</h2>
+    <ul id="friends-list" class="friend-list"></ul>
+
+    <h2>Заявки в друзья</h2>
+    <ul id="friend-requests" class="friend-requests"></ul>
+</div>
 </main>
 
-<script>
-// Получаем текущего пользователя
-let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-const loginBtn = document.getElementById('loginBtn');
-const profileInfo = document.getElementById('profileInfo');
-
-function updateProfileUI(){
-    if(currentUser){
-        loginBtn.textContent = currentUser.nickname;
-        loginBtn.onclick = () => window.location.href = 'profile.html';
-        profileInfo.innerHTML = `
-            <img src="${currentUser.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" 
-                 alt="Аватар" style="width:100px;height:100px;border-radius:50%;margin-bottom:10px;">
-            <p>Никнейм: <strong>${currentUser.nickname}</strong></p>
-        `;
-    } else {
-        loginBtn.textContent = "Войти";
-        loginBtn.onclick = () => window.location.href = 'login.html';
-        profileInfo.innerHTML = "<p>Вы не авторизованы</p>";
-    }
-}
-
-updateProfileUI();
-
-// Сохраняем аватар
-document.getElementById('avatarForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const avatarURL = document.getElementById('avatar').value.trim();
-    if(!avatarURL) return alert("Введите URL аватара");
-    currentUser.avatar = avatarURL;
-
-    // Обновляем пользователя в localStorage
-    let users = JSON.parse(localStorage.getItem('users') || '[]');
-    let index = users.findIndex(u => u.nickname === currentUser.nickname);
-    if(index !== -1) users[index].avatar = avatarURL;
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-
-    updateProfileUI();
-    alert("Аватар обновлён!");
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
