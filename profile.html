@@ -1,0 +1,22 @@
+<main>
+    <div class="alert-container" id="profileBox">
+        <h1>Профиль</h1>
+        <p id="welcome"></p>
+        <button onclick="logout()" class="vhs-button">Выйти</button>
+    </div>
+</main>
+
+<script>
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+if (!currentUser) {
+    alert("Сначала войдите в аккаунт");
+    window.location.href = "login.html";
+} else {
+    document.getElementById('welcome').innerText = `Привет, ${currentUser.nickname}!`;
+}
+
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.href = "login.html";
+}
+</script>
