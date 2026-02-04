@@ -1,126 +1,177 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 
 :root {
-    --bg-main: #0e1320;
-    --bg-card: #151b2e;
+    --bg-main: #ffffff;
+    --bg-card: #f9f9f9;
     --accent: #3b82f6;
     --accent-soft: #1e40af;
-    --text-main: #e5e7eb;
-    --text-muted: #9ca3af;
+    --text-main: #111111;
+    --text-muted: #666666;
     --danger: #ef4444;
     --success: #22c55e;
 }
 
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(180deg, #0e1320, #0b1020);
+    background: var(--bg-main);
     color: var(--text-main);
     min-height: 100vh;
 }
 
-/* Навигация */
+/* ===== НАВИГАЦИЯ ===== */
 .vhs-menu {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(14,19,32,0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.95);
+    border-bottom: 1px solid #ddd;
     z-index: 100;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
+    padding: 10px 20px;
 }
 
 .vhs-menu ul {
     list-style: none;
     display: flex;
-    justify-content: center;
-    gap: 40px;
+    gap: 25px;
     margin: 0;
     padding: 0;
 }
 
 .vhs-menu a {
-    color: var(--text-muted);
+    color: var(--text-main);
     text-decoration: none;
     font-weight: 500;
-    text-transform: uppercase;
 }
 
 .vhs-menu a.active,
-.vhs-menu a:hover { color: var(--accent); }
-
-/* Пользователь / аватар */
-.user-info {
-    position: absolute;
-    right: 20px;
-    top: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 500;
-    color: var(--text-main);
-    cursor: pointer;
+.vhs-menu a:hover {
+    color: var(--accent);
 }
 
-.user-info img {
+/* ===== АВАТАР / ВХОД ===== */
+.menu-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
 }
 
-/* Основной контент */
+.menu-login {
+    font-weight: 500;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
 main {
-    padding-top: 80px;
+    padding-top: 70px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
-    align-items: center;
 }
 
-.alert-container, .news-container, .report-container, .profile-container {
-    width: 100%;
-    max-width: 900px;
-    padding: 20px;
+/* ===== КАРТОЧКИ ===== */
+.card {
     background: var(--bg-card);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border-radius: 12px;
+    padding: 20px;
     margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Кнопки */
+/* ===== КНОПКИ ===== */
 .vhs-button {
     display: inline-block;
-    margin-top: 15px;
-    padding: 12px 25px;
+    padding: 10px 20px;
     background: var(--accent);
     color: white;
-    border-radius: 12px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 500;
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.vhs-button:hover { background: var(--accent-soft); }
+.vhs-button:hover {
+    background: var(--accent-soft);
+}
 
-/* Профиль */
-.profile-container img { width:120px; height:120px; border-radius:50%; margin-bottom:10px; }
-.profile-container ul { list-style: none; padding:0; margin:10px 0; }
-.profile-container li { margin-bottom:6px; }
+/* ===== FORM ===== */
+input, textarea, select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
 
-/* Футер */
-.footer-info {
-    position: fixed;
-    bottom: 20px;
-    width: 95%;
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--accent-soft);
+}
+
+/* ===== ПРОФИЛЬ ===== */
+.profile-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background: var(--bg-card);
+    border-radius: 12px;
+}
+
+.profile-header {
     display: flex;
     justify-content: space-between;
-    font-size: 1rem;
-    opacity: 0.7;
-}    
+    align-items: center;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info input, .profile-info textarea {
+    margin-bottom: 15px;
+}
+
+/* ДРУЗЬЯ */
+.friend-list, .friend-requests {
+    list-style: none;
+    padding: 0;
+}
+
+.friend-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+.friend-item button {
+    margin-left: 10px;
+}
+
+/* ===== НИЧЕГО НЕ АВТОРИЗОВАН ===== */
+.login-prompt {
+    color: var(--accent);
+    font-weight: 500;
+    cursor: pointer;
+}
