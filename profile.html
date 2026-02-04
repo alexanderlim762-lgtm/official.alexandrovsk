@@ -48,123 +48,111 @@
         <input type="file" id="avatar-input" accept="image/*">
     </div>
 
-    <h2>Друзья</h2>
-    <ul id="friend-list" class="friend-list"></ul>
+    <h2>Поиск пользователей</h2>
+<input type="text" id="search-input" placeholder="Введите никнейм">
+<ul id="search-results"></ul>
 
 </div>
 </main>
-
 <script>
-// ================== Меню ==================
-let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+const searchInput = document.getElementById('search-input');
+const searchResultsEl = document.getElementById('search-results');
 
-const avatarEl = document.getElementById('menu-avatar');
-const loginEl = document.getElementById('menu-login');
+// Симуляция "базы всех пользователей" через localStorage
+let allUsers = JSON.parse(localStorage.getItem('allUsers')) || [];
 
-function updateMenu(){
-    if(currentUser){
-        avatarEl.src = currentUser.avatar || 'default-avatar.png';
-        avatarEl.style.display = 'inline-block';
-        loginEl.style.display = 'none';
-    } else {
-        avatarEl.style.display = 'none';
-        loginEl.style.display = 'inline-block';
-    }
-}
+// Поиск по никнейму
+searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    searchResultsEl.innerHTML = '';
+    if(query.length === 0) return;
 
-function goToProfile(){
-    if(currentUser) window.location.href = 'profile.html';
-}
-
-function goToLogin(){
-    window.location.href = 'login.html';
-}
-
-updateMenu();
-
-// ================== Профиль ==================
-const profileAvatar = document.getElementById('profile-avatar');
-const nicknameInput = document.getElementById('nickname');
-const aboutInput = document.getElementById('about');
-const youtubeInput = document.getElementById('youtube');
-const telegramInput = document.getElementById('telegram');
-const discordInput = document.getElementById('discord');
-const avatarInput = document.getElementById('avatar-input');
-const friendListEl = document.getElementById('friend-list');
-
-if(!currentUser){
-    alert('Пожалуйста, войдите в аккаунт!');
-    window.location.href = 'login.html';
-} else {
-    // Заполняем данные
-    nicknameInput.value = currentUser.nickname;
-    aboutInput.value = currentUser.about || '';
-    youtubeInput.value = currentUser.youtube || '';
-    telegramInput.value = currentUser.telegram || '';
-    discordInput.value = currentUser.discord || '';
-    profileAvatar.src = currentUser.avatar || 'default-avatar.png';
-}
-
-// Загрузка аватара
-avatarInput.addEventListener('change', function(){
-    const file = this.files[0];
-    if(file){
-        const reader = new FileReader();
-        reader.onload = function(e){
-            profileAvatar.src = e.target.result;
-            currentUser.avatar = e.target.result;
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            updateMenu(); // обновляем верхнее меню
-        }
-        reader.readAsDataURL(file);
-    }
-});
-
-// Сохранение полей
-aboutInput.addEventListener('input', () => {
-    currentUser.about = aboutInput.value;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-});
-
-youtubeInput.addEventListener('input', () => {
-    currentUser.youtube = youtubeInput.value;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-});
-
-telegramInput.addEventListener('input', () => {
-    currentUser.telegram = telegramInput.value;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-});
-
-discordInput.addEventListener('input', () => {
-    currentUser.discord = discordInput.value;
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-});
-
-// ================== Выйти ==================
-function logout(){
-    localStorage.removeItem('currentUser');
-    window.location.href = 'login.html';
-}
-
-// ================== Друзья ==================
-function renderFriends(){
-    friendListEl.innerHTML = '';
-    const friends = currentUser.friends || [];
-    friends.forEach(friend => {
+    const results = allUsers.filter(u => u.nickname.toLowerCase().includes(query) && u.nickname !== currentUser.nickname);
+    results.forEach(user => {
         const li = document.createElement('li');
-        li.classList.add('friend-item');
-        li.textContent = friend;
-        friendListEl.appendChild(li);
+        li.textContent = user.nickname;
+
+        const addBtn = document.createElement('button');
+        addBtn.textContent = "Добавить в друзья";
+        addBtn.classList.add('vhs-button');
+        addBtn.style.marginLeft = '10px';
+
+        addBtn.addEventListener('click', () => {
+            sendFriendRequest(user.nickname);
+        });
+
+        li.appendChild(addBtn);
+        searchResultsEl.appendChild(li);
+    });
+});
+
+// ================== Заявка в друзья ==================
+function sendFriendRequest(friendNickname){
+    // Найти пользователя в allUsers
+    let friend = allUsers.find(u => u.nickname === friendNickname);
+    if(!friend.requests) friend.requests = [];
+
+    // Проверка, что заявка ещё не отправлена
+    if(friend.requests.includes(currentUser.nickname)){
+        alert("Вы уже отправили заявку этому пользователю");
+        return;
+    }
+
+    friend.requests.push(currentUser.nickname);
+    localStorage.setItem('allUsers', JSON.stringify(allUsers));
+    alert("Заявка отправлена!");
+}
+
+// ================== Обработка входящих заявок ==================
+function renderFriendRequests(){
+    if(!currentUser.requests) currentUser.requests = [];
+    currentUser.requests.forEach(req => {
+        const li = document.createElement('li');
+        li.textContent = req;
+
+        const acceptBtn = document.createElement('button');
+        acceptBtn.textContent = "Принять";
+        acceptBtn.classList.add('vhs-button');
+        acceptBtn.style.marginLeft = '5px';
+
+        acceptBtn.addEventListener('click', () => {
+            if(!currentUser.friends) currentUser.friends = [];
+            currentUser.friends.push(req);
+
+            // Добавляем текущего пользователя в друзья отправителю
+            let sender = allUsers.find(u => u.nickname === req);
+            if(!sender.friends) sender.friends = [];
+            sender.friends.push(currentUser.nickname);
+
+            // Удаляем заявку
+            currentUser.requests = currentUser.requests.filter(r => r !== req);
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('allUsers', JSON.stringify(allUsers));
+            renderFriendRequests();
+            renderFriends();
+        });
+
+        const rejectBtn = document.createElement('button');
+        rejectBtn.textContent = "Отклонить";
+        rejectBtn.classList.add('vhs-button');
+        rejectBtn.style.marginLeft = '5px';
+
+        rejectBtn.addEventListener('click', () => {
+            currentUser.requests = currentUser.requests.filter(r => r !== req);
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            renderFriendRequests();
+        });
+
+        li.appendChild(acceptBtn);
+        li.appendChild(rejectBtn);
+        searchResultsEl.appendChild(li);
     });
 }
 
-if(currentUser.friends){
-    renderFriends();
-} else {
-    currentUser.friends = [];
-}
-</script>
+// Рендер друзей и заявок при загрузке
+renderFriends();
+renderFriendRequests();
 
+</script>
 </body>
 </html>
