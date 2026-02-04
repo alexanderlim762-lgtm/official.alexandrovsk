@@ -1,90 +1,63 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Главная - Александровский АО</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Главная</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="admin-square"></div>
-
+<!-- Верхнее меню -->
 <nav class="vhs-menu">
-    <ul>
-        <li><a href="index.html" class="active">ГЛАВНАЯ</a></li>
-        <li><a href="news.html">НОВОСТИ</a></li>
-        <li><a href="rules.html">ПРАВИЛА</a></li>
-        <li><a href="support@alexandrovsk.c6t.ru">СОТРУДНИЧЕСТВО</a></li>
-
-                
-        <li><a href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">YOUTUBE</a></li>
-    </ul>
+  <ul>
+    <li><a href="index.html" class="active">Главная</a></li>
+    <li><a href="news.html">Новости</a></li>
+    <li><a href="rules.html">Правила</a></li>
+    <li><a href="support.html">Поддержка</a></li>
+  </ul>
+  <div class="user-info">
+    <span id="loginBtn">Войти</span>
+  </div>
 </nav>
 
 <main>
-    <div class="alert-container">
-        <h1>Главная</h1>
+  <div class="alert-container">
+    <h1>Добро пожаловать на сайт Александровского АО!</h1>
+    <p>На нашем сайте вы можете создавать аккаунты, проекты, монстров и общаться с другими пользователями.</p>
 
-        <div class="message-box">
-            <p class="blink-text">
-                ВНИМАНИЕ: САЙТ ЯВЛЯЕТСЯ ХУДОЖЕСТВЕННЫМ ПРОЕКТОМ. ВСЕ ПЕРСОНАЖИ ВЫМЫШЛЕНЫ.
-            </p>
-            <p>Обнаружена неизвестная активность в лесном массиве.</p>
-            <p>Жителям рекомендуется оставаться в помещениях до дальнейших уведомлений.</p>
-        </div>
-
-        <a class="vhs-button" href="https://www.youtube.com/@Alexandrovsk_Official" target="_blank">
-            Перейти к видеоматериалам
-        </a>
-    </div>
+    <div id="welcomeSection"></div>
+  </div>
 </main>
 
-<div class="footer-info">
-    <span>System: GovNet</span>
-    <span>Status: Online</span>
-</div>
-    <script>
-async function checkCountryAccess() {
-    try {
-        // Используем бесплатный API для определения страны по IP
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        const country = data.country_code; // ISO код страны, например "RU"
+<script>
+// Проверяем текущего пользователя
+let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+const loginBtn = document.getElementById('loginBtn');
+const welcomeSection = document.getElementById('welcomeSection');
 
-        // Разрешенные страны
-        const allowed = ['RU', 'BY']; // Россия и Беларусь
+function updateUI(){
+    if(currentUser){
+        loginBtn.textContent = currentUser.nickname;
+        loginBtn.onclick = () => window.location.href = 'profile.html';
 
-        if (!allowed.includes(country)) {
-            // Если страна не разрешена — скрываем контент
-            document.body.innerHTML = `
-                <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#600000; color:white; text-align:center; font-family:Roboto, sans-serif;">
-                    <div>
-                        <h1>Доступ запрещён</h1>
-                        <p>Сайт доступен только для посетителей из России и Беларуси. Узнать: https://alexandrovsk.c6t.ru/blockedregion.html</p>
-                        
-                    </div>
-                </div>
-            `;
-        }
-    } catch (err) {
-        console.error('Ошибка определения страны:', err);
-        // В случае ошибки можно разрешить доступ по умолчанию
+        welcomeSection.innerHTML = `
+            <p>Привет, <strong>${currentUser.nickname}</strong>!</p>
+            <p>Ваш аватар:</p>
+            <img src="${currentUser.avatar || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'}" 
+                 alt="Аватар" style="width:120px;height:120px;border-radius:50%;">
+        `;
+    } else {
+        loginBtn.textContent = "Войти";
+        loginBtn.onclick = () => window.location.href = 'login.html';
+        welcomeSection.innerHTML = `
+            <p>Вы не авторизованы. Пожалуйста, <a href="login.html">войдите или создайте аккаунт</a>.</p>
+        `;
     }
 }
 
-// Запускаем проверку
-checkCountryAccess();
-    </script>
+updateUI();
+</script>
 
 </body>
 </html>
-
-
-
-
-
-
-
