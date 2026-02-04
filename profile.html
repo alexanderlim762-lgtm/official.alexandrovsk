@@ -6,14 +6,20 @@
 <title>Профиль</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body onload="loadProfile()">
+<body>
+
+<!-- Верхнее меню -->
 <div class="vhs-menu">
-    <a href="index.html">Главная</a>
-    <a href="news.html">Новости</a>
-    <a href="rules.html">Правила</a>
+    <ul>
+        <li><a href="index.html">Главная</a></li>
+        <li><a href="news.html">Новости</a></li>
+        <li><a href="rules.html">Правила</a></li>
+        <li><a href="updates.html">Обновления</a></li>
+        <li><a href="plays.html">Проекты</a></li>
+    </ul>
     <div>
-        <img id="menu-avatar" class="menu-avatar" src="" alt="" onclick="window.location.href='profile.html'">
-        <span id="menu-login" class="menu-login" onclick="window.location.href='login.html'">Войти</span>
+        <img id="menu-avatar" class="menu-avatar" src="" alt="" onclick="goToProfile()">
+        <span id="menu-login" class="menu-login" onclick="goToLogin()">Войти</span>
     </div>
 </div>
 
@@ -21,31 +27,144 @@
 <div class="profile-container">
     <div class="profile-header">
         <img id="profile-avatar" class="profile-avatar" src="default-avatar.png" alt="Аватар">
-        <input type="file" id="profile-avatar-input" accept="image/*">
-        <button onclick="logoutUser()">Выйти</button>
-    </div>
-    <div class="profile-info">
-        <input type="text" id="profile-nick" placeholder="Никнейм">
-        <textarea id="profile-about" placeholder="О себе"></textarea>
-        <input type="text" id="link-youtube" placeholder="YouTube">
-        <input type="text" id="link-telegram" placeholder="Telegram">
-        <input type="text" id="link-discord" placeholder="Discord">
-        <button onclick="saveProfile()">Сохранить профиль</button>
+        <div>
+            <button class="vhs-button" onclick="logout()">Выйти из аккаунта</button>
+        </div>
     </div>
 
-    <h2>Поиск пользователей</h2>
-    <input type="text" id="search-nick" placeholder="Введите никнейм">
-    <button onclick="searchUser()">Поиск</button>
-    <ul id="search-results"></ul>
+    <div class="profile-info">
+        <label>Никнейм:</label>
+        <input type="text" id="nickname" readonly>
+
+        <label>О себе:</label>
+        <textarea id="about" placeholder="Расскажите о себе"></textarea>
+
+        <label>Ссылки:</label>
+        <input type="text" id="youtube" placeholder="YouTube">
+        <input type="text" id="telegram" placeholder="Telegram">
+        <input type="text" id="discord" placeholder="Discord">
+
+        <label>Загрузить аватар:</label>
+        <input type="file" id="avatar-input" accept="image/*">
+    </div>
 
     <h2>Друзья</h2>
-    <ul id="friends-list" class="friend-list"></ul>
+    <ul id="friend-list" class="friend-list"></ul>
 
-    <h2>Заявки в друзья</h2>
-    <ul id="friend-requests" class="friend-requests"></ul>
 </div>
 </main>
 
-<script src="script.js"></script>
+<script>
+// ================== Меню ==================
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+
+const avatarEl = document.getElementById('menu-avatar');
+const loginEl = document.getElementById('menu-login');
+
+function updateMenu(){
+    if(currentUser){
+        avatarEl.src = currentUser.avatar || 'default-avatar.png';
+        avatarEl.style.display = 'inline-block';
+        loginEl.style.display = 'none';
+    } else {
+        avatarEl.style.display = 'none';
+        loginEl.style.display = 'inline-block';
+    }
+}
+
+function goToProfile(){
+    if(currentUser) window.location.href = 'profile.html';
+}
+
+function goToLogin(){
+    window.location.href = 'login.html';
+}
+
+updateMenu();
+
+// ================== Профиль ==================
+const profileAvatar = document.getElementById('profile-avatar');
+const nicknameInput = document.getElementById('nickname');
+const aboutInput = document.getElementById('about');
+const youtubeInput = document.getElementById('youtube');
+const telegramInput = document.getElementById('telegram');
+const discordInput = document.getElementById('discord');
+const avatarInput = document.getElementById('avatar-input');
+const friendListEl = document.getElementById('friend-list');
+
+if(!currentUser){
+    alert('Пожалуйста, войдите в аккаунт!');
+    window.location.href = 'login.html';
+} else {
+    // Заполняем данные
+    nicknameInput.value = currentUser.nickname;
+    aboutInput.value = currentUser.about || '';
+    youtubeInput.value = currentUser.youtube || '';
+    telegramInput.value = currentUser.telegram || '';
+    discordInput.value = currentUser.discord || '';
+    profileAvatar.src = currentUser.avatar || 'default-avatar.png';
+}
+
+// Загрузка аватара
+avatarInput.addEventListener('change', function(){
+    const file = this.files[0];
+    if(file){
+        const reader = new FileReader();
+        reader.onload = function(e){
+            profileAvatar.src = e.target.result;
+            currentUser.avatar = e.target.result;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateMenu(); // обновляем верхнее меню
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Сохранение полей
+aboutInput.addEventListener('input', () => {
+    currentUser.about = aboutInput.value;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+});
+
+youtubeInput.addEventListener('input', () => {
+    currentUser.youtube = youtubeInput.value;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+});
+
+telegramInput.addEventListener('input', () => {
+    currentUser.telegram = telegramInput.value;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+});
+
+discordInput.addEventListener('input', () => {
+    currentUser.discord = discordInput.value;
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+});
+
+// ================== Выйти ==================
+function logout(){
+    localStorage.removeItem('currentUser');
+    window.location.href = 'login.html';
+}
+
+// ================== Друзья ==================
+function renderFriends(){
+    friendListEl.innerHTML = '';
+    const friends = currentUser.friends || [];
+    friends.forEach(friend => {
+        const li = document.createElement('li');
+        li.classList.add('friend-item');
+        li.textContent = friend;
+        friendListEl.appendChild(li);
+    });
+}
+
+if(currentUser.friends){
+    renderFriends();
+} else {
+    currentUser.friends = [];
+}
+</script>
+
 </body>
 </html>
