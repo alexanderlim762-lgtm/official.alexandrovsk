@@ -24,13 +24,16 @@
 </div>
 
 <main>
-<div class="profile-container">
-    <div class="profile-header">
-        <img id="profile-avatar" class="profile-avatar" src="default-avatar.png" alt="Аватар">
-        <div>
-            <button class="vhs-button" onclick="logout()">Выйти из аккаунта</button>
-        </div>
+<div class="profile-header">
+    <!-- Если аватар загружен — отображаем его, иначе значок человека -->
+    <img id="profile-avatar" class="profile-avatar" src="" alt="Аватар">
+    <div>
+        <button class="vhs-button" onclick="logout()">Выйти из аккаунта</button>
     </div>
+</div>
+
+<label>Загрузить аватар:</label>
+<input type="file" id="avatar-input" accept="image/*">
 
     <div class="profile-info">
         <label>Никнейм:</label>
