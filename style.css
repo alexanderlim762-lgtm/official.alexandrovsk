@@ -1,157 +1,118 @@
-/* ===== Общий стиль ===== */
+        /* ===== Общий стиль ===== */
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
+    background-color: #fdfdfd;
     color: #111;
 }
 
 /* ===== Навигация ===== */
 nav {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    padding: 20px 50px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px 50px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-nav a {
-    color: #111;
-    text-decoration: none;
-    margin-left: 30px;
-    font-weight: 500;
-    position: relative;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    background: #3b82f6;
-    bottom: -5px;
-    left: 0;
-    transition: 0.3s;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-/* ===== Аватар в правом верхнем углу ===== */
-.avatar {
+nav a img {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
     object-fit: cover;
 }
 
-/* ===== Главная страница ===== */
+/* ===== Главная секция ===== */
 .hero {
     height: 80vh;
-    background: url('bg.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-}
-
-.hero-overlay {
-    background: rgba(255,255,255,0.85);
-    padding: 50px;
+    background: linear-gradient(135deg, #e0f7fa, #ffffff);
     text-align: center;
-    border-radius: 10px;
+    padding: 0 20px;
 }
 
-.hero-title {
-    font-size: 50px;
-    color: #111;
+.hero h1 {
+    font-size: 3rem;
     margin: 0;
+    color: #111;
 }
 
-.hero-subtitle {
-    font-size: 24px;
-    color: #555;
+.hero p {
+    font-size: 1.5rem;
     margin-top: 10px;
+    color: #555;
 }
 
-.hero-button {
+.hero a {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 12px 25px;
     background: #3b82f6;
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
-.hero-button:hover {
+.hero a:hover {
     background: #1e40af;
 }
 
 /* ===== Новости ===== */
-.news-card {
-    background: #fff;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 700px;
-    border-left: 4px solid #3b82f6;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* ===== Служба поддержки ===== */
-.support-container {
-    max-width: 700px;
+.news-container {
+    max-width: 900px;
     margin: 40px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 0 20px;
 }
 
-.support-container h1 {
-    text-align: center;
+.news-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    transition: 0.2s;
 }
 
-.support-container form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
+.news-card:hover {
+    transform: translateY(-3px);
 }
 
-.support-container input, .support-container textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    width: 100%;
+.news-card h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
-.support-container button {
-    padding: 10px;
-    background: #3b82f6;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.support-container button:hover {
-    background: #1e40af;
-}
-
-/* ===== Футер ===== */
-footer {
-    text-align: center;
-    padding: 20px;
-    background: #fff;
+.news-card p {
     color: #555;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    line-height: 1.6;
+}
+
+/* ===== Футер / нижняя панель ===== */
+footer {
+    background-color: #ffffff;
+    padding: 20px 50px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+footer a {
+    text-decoration: none;
+    color: #3b82f6;
+    margin-left: 20px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
