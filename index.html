@@ -1,65 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Главная</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Архивы Александровского АО</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <nav>
+        <a href="support.html">Поддержка</a>
+        <a href="news.html">Новости</a>
+        <img src="avatar-default.jpg" class="avatar">
+    </nav>
 
-<div class="vhs-menu">
-    <ul>
-        <li><a href="index.html">Главная</a></li>
-        <li><a href="news.html">Новости</a></li>
-        <li><a href="rules.html">Правила</a></li>
-        <li><a href="updates.html">Обновления</a></li>
-        <li><a href="plays.html">Проекты</a></li>
-    </ul>
-    <div>
-        <img id="menu-avatar" class="menu-avatar" src="" alt="" onclick="goToProfile()">
-        <span id="menu-login" class="menu-login" onclick="goToLogin()">Войти</span>
-    </div>
-</div>
+    <section class="hero">
+        <div class="hero-overlay">
+            <h1 class="hero-title">ДОБРО ПОЖАЛОВАТЬ</h1>
+            <p class="hero-subtitle">Официальный сайт Архивов Александровского АО</p>
+            <a href="support.html" class="hero-button">Перейти в поддержку</a>
+        </div>
+    </section>
 
-<script>
-let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
-
-const avatarEl = document.getElementById('menu-avatar');
-const loginEl = document.getElementById('menu-login');
-
-function updateMenu(){
-    if(currentUser){
-        avatarEl.src = currentUser.avatar || 'default-avatar.png';
-        avatarEl.style.display = 'inline-block';
-        loginEl.style.display = 'none';
-    } else {
-        avatarEl.style.display = 'none';
-        loginEl.style.display = 'inline-block';
-    }
-}
-
-function goToProfile(){
-    if(currentUser) window.location.href = 'profile.html';
-}
-
-function goToLogin(){
-    window.location.href = 'login.html';
-}
-
-updateMenu();
-</script>
-<script id="hc-widget" src="https://chat.help.center/launcher.js" data-domain="alexandrovsk" async></script>    
-
-<main>
-    <div class="alert-container">
-        <h1>Добро пожаловать!</h1>
-        <p>Создавайте аккаунты, проекты, монстров и общайтесь с друзьями.</p>
-    </div>
-</main>
-
-<script src="script.js"></script>
+    <footer>
+        <p>© 2026 Архивы Александровского АО</p>
+    </footer>
 </body>
 </html>
-
-
