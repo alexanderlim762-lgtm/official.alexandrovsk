@@ -1,177 +1,157 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
-
-:root {
-    --bg-main: #ffffff;
-    --bg-card: #f9f9f9;
-    --accent: #3b82f6;
-    --accent-soft: #1e40af;
-    --text-main: #111111;
-    --text-muted: #666666;
-    --danger: #ef4444;
-    --success: #22c55e;
-}
-
-* {
-    box-sizing: border-box;
-}
-
+/* ===== Общий стиль ===== */
 body {
-    margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: var(--bg-main);
-    color: var(--text-main);
-    min-height: 100vh;
-}
-
-/* ===== НАВИГАЦИЯ ===== */
-.vhs-menu {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: rgba(255,255,255,0.95);
-    border-bottom: 1px solid #ddd;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-.vhs-menu ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
     margin: 0;
     padding: 0;
+    background-color: #f5f5f5;
+    color: #111;
 }
 
-.vhs-menu a {
-    color: var(--text-main);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.vhs-menu a.active,
-.vhs-menu a:hover {
-    color: var(--accent);
-}
-
-/* ===== АВАТАР / ВХОД ===== */
-.menu-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-.menu-login {
-    font-weight: 500;
-    color: var(--accent);
-    cursor: pointer;
-}
-
-/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-main {
-    padding-top: 70px;
+/* ===== Навигация ===== */
+nav {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* ===== КАРТОЧКИ ===== */
-.card {
-    background: var(--bg-card);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* ===== КНОПКИ ===== */
-.vhs-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background: var(--accent);
-    color: white;
-    border-radius: 8px;
+nav a {
+    color: #111;
     text-decoration: none;
+    margin-left: 30px;
     font-weight: 500;
-    cursor: pointer;
+    position: relative;
 }
 
-.vhs-button:hover {
-    background: var(--accent-soft);
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #3b82f6;
+    bottom: -5px;
+    left: 0;
+    transition: 0.3s;
 }
 
-/* ===== FORM ===== */
-input, textarea, select {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+nav a:hover::after {
     width: 100%;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    background-color: var(--accent);
-    color: white;
+/* ===== Аватар в правом верхнем углу ===== */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* ===== Главная страница ===== */
+.hero {
+    height: 80vh;
+    background: url('bg.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-overlay {
+    background: rgba(255,255,255,0.85);
+    padding: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.hero-title {
+    font-size: 50px;
+    color: #111;
+    margin: 0;
+}
+
+.hero-subtitle {
+    font-size: 24px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.hero-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #3b82f6;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.hero-button:hover {
+    background: #1e40af;
+}
+
+/* ===== Новости ===== */
+.news-card {
+    background: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+    border-left: 4px solid #3b82f6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ===== Служба поддержки ===== */
+.support-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.support-container h1 {
+    text-align: center;
+}
+
+.support-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.support-container input, .support-container textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    width: 100%;
+}
+
+.support-container button {
+    padding: 10px;
+    background: #3b82f6;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: var(--accent-soft);
+.support-container button:hover {
+    background: #1e40af;
 }
 
-/* ===== ПРОФИЛЬ ===== */
-.profile-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 30px;
-    background: var(--bg-card);
-    border-radius: 12px;
-}
-
-.profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.profile-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.profile-info input, .profile-info textarea {
-    margin-bottom: 15px;
-}
-
-/* ДРУЗЬЯ */
-.friend-list, .friend-requests {
-    list-style: none;
-    padding: 0;
-}
-
-.friend-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-}
-
-.friend-item button {
-    margin-left: 10px;
-}
-
-/* ===== НИЧЕГО НЕ АВТОРИЗОВАН ===== */
-.login-prompt {
-    color: var(--accent);
-    font-weight: 500;
-    cursor: pointer;
+/* ===== Футер ===== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    color: #555;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
