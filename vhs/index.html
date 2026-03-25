@@ -2,28 +2,44 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>VHS Retro Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VHS Retro Experience</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        /* 1. ПОДКЛЮЧЕНИЕ ШРИФТА */
+        @font-face {
+            font-family: 'VHS-Font';
+            src: url('vcr_osd.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 2. БАЗОВЫЕ СТИЛИ */
+        * {
+            box-sizing: border-box;
+            cursor: crosshair;
+        }
 
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            background: #0a0a0a;
-            color: #eee;
-            font-family: 'VT323', monospace;
+            background: #050505; /* Почти черный */
+            color: #ececec;
+            font-family: 'VHS-Font', 'Courier New', monospace;
             overflow: hidden;
+            text-transform: uppercase;
         }
 
-        /* Слой с помехами (Noise) */
+        /* 3. ЭФФЕКТЫ ЭКРАНА (OVERLAYS) */
+        
+        /* Статический шум */
         .noise {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://media.giphy.com/media/oEI9uWUicGuS4/giphy.gif');
-            opacity: 0.05;
-            z-index: 10;
+            opacity: 0.04;
+            z-index: 100;
             pointer-events: none;
         }
 
@@ -32,77 +48,155 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(
-                rgba(18, 16, 16, 0) 50%, 
-                rgba(0, 0, 0, 0.25) 50%
-            ), linear-gradient(
-                90deg, 
-                rgba(255, 0, 0, 0.06), 
-                rgba(0, 255, 0, 0.02), 
-                rgba(0, 0, 255, 0.06)
+                to bottom,
+                rgba(18, 16, 16, 0) 50%,
+                rgba(0, 0, 0, 0.3) 50%
             );
-            background-size: 100% 4px, 3px 100%;
-            z-index: 11;
+            background-size: 100% 4px;
+            z-index: 101;
             pointer-events: none;
         }
 
-        /* Контент */
-        .container {
-            position: relative;
-            padding: 40px;
-            z-index: 2;
+        /* Виньетка и свечение трубки */
+        .crt-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(18, 16, 16, 0) 40%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 102;
+            pointer-events: none;
         }
 
-        /* Экранное меню (OSD) */
+        /* 4. ИНТЕРФЕЙС (OSD) */
         .osd {
             position: absolute;
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+            z-index: 50;
+            font-size: 2rem;
+            text-shadow: 2px 0 #ff0044, -2px 0 #00ffff;
+            filter: blur(0.5px);
         }
 
-        .play { top: 30px; left: 40px; }
-        .date { bottom: 30px; left: 40px; }
-        .timer { bottom: 30px; right: 40px; }
+        .play-status { top: 40px; left: 50px; }
+        .play-status::before { content: "▶ "; }
+
+        .date-time { bottom: 40px; left: 50px; }
+        .counter { bottom: 40px; right: 50px; }
+
+        /* 5. КОНТЕНТ */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            z-index: 10;
+        }
 
         h1 {
-            font-size: 5rem;
-            text-align: center;
-            margin-top: 15%;
-            animation: glitch 1s linear infinite;
+            font-size: 6rem;
+            margin: 0;
+            letter-spacing: 5px;
+            animation: glitch-text 3s infinite;
         }
 
-        /* Анимация глитча */
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px,0) skew(0deg); }
-            4%, 60% { transform: translate(-2px,0) skew(0deg); }
-            62% { transform: translate(0,0) skew(5deg); }
+        .menu-item {
+            margin: 20px 0;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.2s;
+            display: block;
         }
 
-        .screen-tube {
-            width: 100vw;
-            height: 100vh;
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
-            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.1) 100%);
+        .menu-item:hover {
+            background: #fff;
+            color: #000;
+            transform: skewX(-10deg);
+            padding: 0 10px;
         }
+
+        /* 6. АНИМАЦИИ */
+        @keyframes glitch-text {
+            0% { transform: translate(0); text-shadow: 2px 0 #f0f, -2px 0 #0ff; }
+            2% { transform: translate(-3px, 2px); }
+            4% { transform: translate(3px, -1px); }
+            5% { transform: translate(0); }
+            100% { transform: translate(0); }
+        }
+
+        /* Помеха при "перемотке" или загрузке */
+        .vhs-distortion {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(255,255,255,0.4);
+            top: 0;
+            animation: line-move 8s linear infinite;
+            opacity: 0.3;
+            filter: blur(1px);
+        }
+
+        @keyframes line-move {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
+
     </style>
 </head>
 <body>
 
     <div class="noise"></div>
     <div class="scanlines"></div>
+    <div class="crt-overlay"></div>
+    <div class="vhs-distortion"></div>
 
-    <div class="screen-tube">
-        <div class="osd play">▶ PLAY</div>
-        
-        <div class="container">
-            <h1>VHS_PROJECT_V1</h1>
-            <p style="text-align: center; font-size: 1.5rem;">Вставьте кассету, чтобы продолжить...</p>
-        </div>
-
-        <div class="osd date">MAR. 25 1996</div>
-        <div class="osd timer">00:12:44</div>
+    <div class="osd play-status" id="status">PLAY</div>
+    
+    <div class="main-content">
+        <h1>VIRTUAL_REC</h1>
+        <nav>
+            <a href="#" class="menu-item">01. ПРОСМОТР</a>
+            <a href="#" class="menu-item">02. АРХИВ</a>
+            <a href="#" class="menu-item">03. ВЫХОД</a>
+        </nav>
     </div>
 
+    <div class="osd date-time" id="current-date">MAR. 25 1996</div>
+    <div class="osd counter" id="timer">00:00:00:00</div>
+
+    <script>
+        // Обновление таймера (имитация счетчика ленты)
+        let frames = 0;
+        function updateTimer() {
+            frames++;
+            let f = frames % 30;
+            let s = Math.floor(frames / 30) % 60;
+            let m = Math.floor(frames / 1800) % 60;
+            let h = Math.floor(frames / 108000);
+            
+            const format = (n) => n.toString().padStart(2, '0');
+            document.getElementById('timer').innerText = 
+                `${format(h)}:${format(m)}:${format(s)}:${format(f)}`;
+        }
+        setInterval(updateTimer, 33); // ~30 кадров в секунду
+
+        // Установка "старой" даты
+        const date = new Date();
+        const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        document.getElementById('current-date').innerText = 
+            `${months[date.getMonth()]} ${date.getDate()} 1996`;
+
+        // Эффект при клике — "помеха"
+        document.addEventListener('mousedown', () => {
+            document.getElementById('status').innerText = "PAUSE";
+            document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
+        });
+        document.addEventListener('mouseup', () => {
+            document.getElementById('status').innerText = "PLAY";
+            document.body.style.filter = "none";
+        });
+    </script>
 </body>
 </html>
+
 
