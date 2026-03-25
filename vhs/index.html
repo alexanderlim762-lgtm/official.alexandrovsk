@@ -3,200 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VHS Retro Experience</title>
+    <title>VHS Experience</title>
     <style>
-        /* 1. ПОДКЛЮЧЕНИЕ ШРИФТА */
+        /* ШРИФТ (убедись, что файл vcr_osd.ttf лежит в корне репозитория) */
         @font-face {
             font-family: 'VHS-Font';
-            src: url('vcr_osd.ttf') format('truetype');
+            src: url('./vcr_osd.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
         }
 
-        /* 2. БАЗОВЫЕ СТИЛИ */
-        * {
-            box-sizing: border-box;
-            cursor: crosshair;
-        }
-
         body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background: #050505; /* Почти черный */
-            color: #ececec;
-            font-family: 'VHS-Font', 'Courier New', monospace;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            color: #fff;
+            font-family: 'VHS-Font', monospace;
             overflow: hidden;
-            text-transform: uppercase;
         }
 
-        /* 3. ЭФФЕКТЫ ЭКРАНА (OVERLAYS) */
-        
-        /* Статический шум */
+        /* 1. ЭКРАН ВСТАВКИ КАССЕТЫ */
+        #intro-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            cursor: pointer;
+        }
+
+        .insert-btn {
+            border: 2px solid #fff;
+            padding: 20px 40px;
+            font-size: 2rem;
+            background: none;
+            color: #fff;
+            font-family: 'VHS-Font';
+            transition: 0.3s;
+        }
+
+        .insert-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* 2. СИНИЙ ЭКРАН */
+        #blue-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0000ff; /* Тот самый синий */
+            display: none; /* Скрыт по умолчанию */
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+            z-index: 1000;
+        }
+
+        .osd-text {
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 2px 2px #000;
+            filter: blur(0.5px);
+        }
+
+        /* 3. ОСНОВНОЙ КОНТЕНТ (Скрыт пока идет синий экран) */
+        #main-site {
+            opacity: 0;
+            transition: opacity 2s;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ЭФФЕКТЫ ПОМЕХ */
         .noise {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://media.giphy.com/media/oEI9uWUicGuS4/giphy.gif');
-            opacity: 0.04;
-            z-index: 100;
-            pointer-events: none;
+            opacity: 0.05; z-index: 500; pointer-events: none;
         }
-
-        /* Сканирующие линии */
-        .scanlines {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(
-                to bottom,
-                rgba(18, 16, 16, 0) 50%,
-                rgba(0, 0, 0, 0.3) 50%
-            );
-            background-size: 100% 4px;
-            z-index: 101;
-            pointer-events: none;
-        }
-
-        /* Виньетка и свечение трубки */
-        .crt-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(18, 16, 16, 0) 40%, rgba(0, 0, 0, 0.6) 100%);
-            z-index: 102;
-            pointer-events: none;
-        }
-
-        /* 4. ИНТЕРФЕЙС (OSD) */
-        .osd {
-            position: absolute;
-            z-index: 50;
-            font-size: 2rem;
-            text-shadow: 2px 0 #ff0044, -2px 0 #00ffff;
-            filter: blur(0.5px);
-        }
-
-        .play-status { top: 40px; left: 50px; }
-        .play-status::before { content: "▶ "; }
-
-        .date-time { bottom: 40px; left: 50px; }
-        .counter { bottom: 40px; right: 50px; }
-
-        /* 5. КОНТЕНТ */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            z-index: 10;
-        }
-
-        h1 {
-            font-size: 6rem;
-            margin: 0;
-            letter-spacing: 5px;
-            animation: glitch-text 3s infinite;
-        }
-
-        .menu-item {
-            margin: 20px 0;
-            font-size: 1.5rem;
-            text-decoration: none;
-            color: #fff;
-            transition: all 0.2s;
-            display: block;
-        }
-
-        .menu-item:hover {
-            background: #fff;
-            color: #000;
-            transform: skewX(-10deg);
-            padding: 0 10px;
-        }
-
-        /* 6. АНИМАЦИИ */
-        @keyframes glitch-text {
-            0% { transform: translate(0); text-shadow: 2px 0 #f0f, -2px 0 #0ff; }
-            2% { transform: translate(-3px, 2px); }
-            4% { transform: translate(3px, -1px); }
-            5% { transform: translate(0); }
-            100% { transform: translate(0); }
-        }
-
-        /* Помеха при "перемотке" или загрузке */
-        .vhs-distortion {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: rgba(255,255,255,0.4);
-            top: 0;
-            animation: line-move 8s linear infinite;
-            opacity: 0.3;
-            filter: blur(1px);
-        }
-
-        @keyframes line-move {
-            0% { top: 0%; }
-            100% { top: 100%; }
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="noise"></div>
-    <div class="scanlines"></div>
-    <div class="crt-overlay"></div>
-    <div class="vhs-distortion"></div>
-
-    <div class="osd play-status" id="status">PLAY</div>
-    
-    <div class="main-content">
-        <h1>VIRTUAL_REC</h1>
-        <nav>
-            <a href="#" class="menu-item">01. ПРОСМОТР</a>
-            <a href="#" class="menu-item">02. АРХИВ</a>
-            <a href="#" class="menu-item">03. ВЫХОД</a>
-        </nav>
+    <div id="intro-screen">
+        <button class="insert-btn" onclick="startVhs()">INSERT CASSETTE</button>
     </div>
 
-    <div class="osd date-time" id="current-date">MAR. 25 1996</div>
-    <div class="osd counter" id="timer">00:00:00:00</div>
+    <div id="blue-screen">
+        <div class="osd-text">PLAY</div>
+        <div style="display: flex; justify-content: space-between;">
+            <div class="osd-text">SLP</div>
+            <div class="osd-text">0:00:00</div>
+        </div>
+    </div>
+
+    <div id="main-site">
+        <div class="noise"></div>
+        <h1 style="font-size: 5rem; text-shadow: 3px 0 red, -3px 0 cyan;">ДОБРО ПОЖАЛОВАТЬ В 1996</h1>
+    </div>
+
+    <audio id="vhs-sound" src="https://www.soundjay.com/mechanical/cassette-insert-01.mp3"></audio>
 
     <script>
-        // Обновление таймера (имитация счетчика ленты)
-        let frames = 0;
-        function updateTimer() {
-            frames++;
-            let f = frames % 30;
-            let s = Math.floor(frames / 30) % 60;
-            let m = Math.floor(frames / 1800) % 60;
-            let h = Math.floor(frames / 108000);
-            
-            const format = (n) => n.toString().padStart(2, '0');
-            document.getElementById('timer').innerText = 
-                `${format(h)}:${format(m)}:${format(s)}:${format(f)}`;
+        function startVhs() {
+            const intro = document.getElementById('intro-screen');
+            const blue = document.getElementById('blue-screen');
+            const main = document.getElementById('main-site');
+            const audio = document.getElementById('vhs-sound');
+
+            // 1. Прячем кнопку, включаем звук
+            intro.style.display = 'none';
+            audio.play();
+
+            // 2. Показываем синий экран
+            blue.style.display = 'flex';
+
+            // 3. Через 4 секунды убираем синий экран и плавно показываем сайт
+            setTimeout(() => {
+                blue.style.display = 'none';
+                main.style.opacity = '1';
+            }, 4000);
         }
-        setInterval(updateTimer, 33); // ~30 кадров в секунду
-
-        // Установка "старой" даты
-        const date = new Date();
-        const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-        document.getElementById('current-date').innerText = 
-            `${months[date.getMonth()]} ${date.getDate()} 1996`;
-
-        // Эффект при клике — "помеха"
-        document.addEventListener('mousedown', () => {
-            document.getElementById('status').innerText = "PAUSE";
-            document.body.style.filter = "hue-rotate(90deg) contrast(1.5)";
-        });
-        document.addEventListener('mouseup', () => {
-            document.getElementById('status').innerText = "PLAY";
-            document.body.style.filter = "none";
-        });
     </script>
+
 </body>
 </html>
+
 
 
