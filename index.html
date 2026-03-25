@@ -2,35 +2,103 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Архивы Александровского АО</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    </div>
+</div>
+
+
     <nav>
         <div class="nav-left">
-            <a href="index.html"><img src="home-icon.png" alt="Главная"></a>
+            <a href="index.html" class="logo-link">
+                <img src="home-icon.png" alt="Главная">
+                <span>Архивы ААО</span>
+            </a>
         </div>
         <div class="nav-right">
             <a href="news.html">Новости</a>
-            <a href="https://alexandrovsk.help.center" target="_blank">Поддержка</a>
+            <a href="alexandrovsksupport.c6t.ru" target="_blank" class="btn-support">Поддержка</a>
         </div>
     </nav>
 
     <section class="hero">
-        <div>
+        <div class="hero-content">
             <h1>Добро пожаловать</h1>
-            <p>Официальный сайт Архивов Александровского АО</p>
-            <a href="https://alexandrovsk.help.center" target="_blank">Служба поддержки</a>
+            <p>Официальный цифровой ресурс Архивов Александровского АО</p>
+            <div class="hero-btns">
+                <a href="#video" class="btn-primary">Смотреть видео</a>
+                <a href="https://alexandrovsk.help.center" target="_blank" class="btn-secondary">Служба поддержки</a>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <span>© 2026 Архивы Александровского АО</span>
-        <span>
-            <a href="news.html">Новости</a>
-            <a href="https://alexandrovsk.help.center" target="_blank">Поддержка</a>
-        </span>
+    <section id="video" class="video-section">
+        <div class="container">
+            <h2 class="section-title">Видеообзор архива</h2>
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://youtu.be/LH5vQcTw3_E?si=qvJlTZZNEC8lBObM" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="home-icon.png" alt="Лого">
+                    <h3>Архивы ААО</h3>
+                </div>
+                <p>Единая информационная система по хранению и доступу к архивным документам Александровского АО.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная страница</a></li>
+                    <li><a href="news.html">Последние новости</a></li>
+                   
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Сообщество</h4>
+                <ul>
+                    <li><a href="alexandrovsksupport.c6t.ru/rules.html">Правила поведения</a></li>
+                    <li><a href="alexandrovsksupport.c6t.ru/collaboration.html">Сотрудничество</a></li>
+                   
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Связь</h4>
+                <ul>
+                    <li><a href="https://alexandrovsk.help.center" target="_blank"> Техническая поддержка</a></li>
+                    <li><a href="#">Обратная связь</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" class="social-tag">Telegram</a>
+                    <a href="#" class="social-tag">VK</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Архивы Александровского АО. Все права защищены.</p>
+        </div>
     </footer>
+
+
 </body>
 </html>

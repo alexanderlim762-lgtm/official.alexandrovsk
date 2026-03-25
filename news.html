@@ -2,45 +2,111 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Новости</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости — Архивы Александровского АО</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav>
-    <div class="nav-left">
-        <a href="index.html"><img src="home-icon.png" alt="Главная"></a>
-    </div>
-    <div class="nav-right">
-        <a href="news.html">Новости</a>
-        <a href="https://alexandrovsk.help.center" target="_blank">Поддержка</a>
-    </div>
-</nav>
 
-<section class="news-container">
-    <div class="news-card" style="animation-delay:0.1s">
-        <h2>Новость 1</h2>
-        <p>Короткое описание новости 1...</p>
-        <a class="read-more" href="news1.html">Читать далее</a>
-    </div>
-    <div class="news-card" style="animation-delay:0.3s">
-        <h2>Новость 2</h2>
-        <p>Короткое описание новости 2...</p>
-        <a class="read-more" href="news2.html">Читать далее</a>
-    </div>
-    <div class="news-card" style="animation-delay:0.5s">
-        <h2>Новость 3</h2>
-        <p>Короткое описание новости 3...</p>
-        <a class="read-more" href="news3.html">Читать далее</a>
-    </div>
-</section>
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="logo-link">
+                <img src="home-icon.png" alt="Главная">
+                <span>Архивы ААО</span>
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="news.html" class="active">Новости</a>
+            <a href="https://alexandrovsk.help.center" target="_blank" class="btn-support">Поддержка</a>
+        </div>
+    </nav>
 
-<footer>
-    <span>© 2026 Архивы Александровского АО</span>
-    <span>
-        <a href="index.html">Главная</a>
-        <a href="https://alexandrovsk.help.center" target="_blank">Поддержка</a>
-    </span>
-</footer>
+    <header class="page-header">
+        <div class="container">
+            <h1>Новости архива</h1>
+            <p>Свежие события, открытия и обновления в цифровых архивах Александровского АО</p>
+        </div>
+    </header>
+
+    <section class="news-grid-section">
+        <div class="news-grid-container">
+            
+            <div class="news-card-modern" style="animation-delay: 0.2s">
+                <div class="news-badge">История</div>
+                <div class="news-body">
+                    <span class="news-date">12 Марта, 2026</span>
+                    <h2>Оцифровка фондов 19-го века</h2>
+                    <p>Завершена масштабная работа по оцифровке редких рукописей, касающихся основания нашего округа...</p>
+                    <a href="news1.html" class="read-more-btn">Читать далее →</a>
+                </div>
+            </div>
+
+            <div class="news-card-modern" style="animation-delay: 0.4s">
+                <div class="news-badge">События</div>
+                <div class="news-body">
+                    <span class="news-date">10 Марта, 2026</span>
+                    <h2>День открытых дверей</h2>
+                    <p>Приглашаем всех желающих посетить наши физические хранилища и увидеть работу архивистов изнутри...</p>
+                    <a href="news2.html" class="read-more-btn">Читать далее →</a>
+                </div>
+            </div>
+
+            <div class="news-card-modern" style="animation-delay: 0.6s">
+                <div class="news-badge">Технологии</div>
+                <div class="news-body">
+                    <span class="news-date">05 Марта, 2026</span>
+                    <h2>Обновление поисковой системы</h2>
+                    <p>Мы внедрили искусственный интеллект для более быстрого и точного поиска по старым документам...</p>
+                    <a href="news3.html" class="read-more-btn">Читать далее →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="home-icon.png" alt="Лого">
+                    <h3>Архивы ААО</h3>
+                </div>
+                <p>Единая информационная система по хранению и доступу к архивным документам Александровского АО.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="index.html">Главная страница</a></li>
+                    <li><a href="news.html">Последние новости</a></li>
+                    <li><a href="#">Оцифрованные архивы</a></li>
+                    <li><a href="#">История округа</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Ресурсы</h4>
+                <ul>
+                    <li><a href="#">База данных</a></li>
+                    <li><a href="#">Поиск документов</a></li>
+                    <li><a href="#">Заявка на справку</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Связь</h4>
+                <ul>
+                    <li><a href="https://alexandrovsk.help.center" target="_blank">Центр поддержки</a></li>
+                    <li><a href="#">Контакты</a></li>
+                </ul>
+                <div class="social-icons">
+                    <a href="#" class="social-tag">Telegram</a>
+                    <a href="#" class="social-tag">VK</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Архивы Александровского АО. Все права защищены.</p>
+        </div>
+    </footer>
+
 </body>
 </html>

@@ -2,67 +2,111 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Новость 1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Важные события марта — Архивы ААО</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<nav>
-    <div class="nav-left">
-        <a href="index.html"><img src="home-icon.png" alt="Главная"></a>
-    </div>
-    <div class="nav-right">
-        <a href="news.html">Новости</a>
-        <a href="https://alexandrovsk.help.center" target="_blank">Поддержка</a>
-    </div>
-</nav>
+<body class="article-page">
 
-<section class="news-container">
-    <div class="news-card">
-        <h2>Новость 1</h2>
-        <p><strong>Дата:</strong> 25 февраля 2026</p>
-           <main>
-        <article>
-            <h1>Важные события Александровского АО – март 2026</h1>
-            <p>В этом выпуске мы расскажем о самых последних событиях и обновлениях в Александровском АО! 📅</p>
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" class="logo-link">
+                <img src="home-icon.png" alt="Главная">
+                <span>Архивы ААО</span>
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="news.html">Новости</a>
+            <a href="https://alexandrovsk.help.center" target="_blank" class="btn-support">Поддержка</a>
+        </div>
+    </nav>
+
+    <div class="top-accent-line"></div>
+
+    <main class="article-wrapper">
+        <article class="full-post">
             
-            <section>
-                <h2>⚠️ Внимание</h2>
-                <p>Видео содержит яркие эффекты, громкие звуки и мигающий фон, поэтому предназначено для просмотра только до 12 лет. При появлении головокружения, тошноты или других неприятных ощущений — немедленно прекратите просмотр.</p>
-            </section>
-            
-            <section>
-                <h2>В выпуске:</h2>
-                <ul>
-                    <li>Новые правила безопасности для жителей Александровского АО.</li>
-                    <li>Обновления по текущим событиям и интересным происшествиям.</li>
-                    <li>Специальные анонсы и новости для всех зрителей.</li>
-                </ul>
-            </section>
-            
-            <section>
-                <h2>📌 Сотрудничество</h2>
-                <p>Все запросы по сотрудничеству принимаются только через сайт 
-                <a href="https://alexandrovsk.help.center/contact">https://alexandrovsk.help.center/contact</a>. 
-                Комментарии под видео для сотрудничества больше не принимаются.</p>
-            </section>
-            
-            <footer>
-                <p><strong>Дата выхода:</strong> запланировано на 27 или 30 марта 2026 года.</p>
+            <header class="post-header">
+                <a href="news.html" class="go-back">← Вернуться к новостям</a>
+                <div class="post-category">
+                    <span class="tag">ОБНОВЛЕНИЕ</span>
+                    <span class="date">25 февраля 2026</span>
+                </div>
+                <h1>Важные события Александровского АО – март 2026</h1>
+            </header>
+
+            <div class="post-content">
+                <p class="intro">
+                    В этом выпуске мы подготовили обзор ключевых изменений, которые вступят в силу в марте 2026 года. 
+                    Пожалуйста, ознакомьтесь с информацией ниже.
+                </p>
+
+                <div class="warning-notice">
+                    <div class="warning-icon">⚠️</div>
+                    <div class="warning-text">
+                        <strong>Внимание!</strong> Видеоматериалы к данной новости содержат яркие визуальные эффекты и громкие звуки. 
+                        Рекомендуемый возраст для просмотра — до 12 лет. Если вы почувствуете дискомфорт, немедленно прекратите просмотр.
+                    </div>
+                </div>
+
+                <section class="content-block">
+                    <h2>Что включено в выпуск:</h2>
+                    <ul class="custom-list">
+                        <li><strong>Протоколы безопасности:</strong> Обновленные инструкции для жителей Александровского АО.</li>
+                        <li><strong>Сводка происшествий:</strong> Анализ текущих событий в округе за последний месяц.</li>
+                        <li><strong>Эксклюзив:</strong> Анонсы новых архивных фондов, которые станут доступны в апреле.</li>
+                    </ul>
+                </section>
+
+                <section class="content-block highlight-box">
+                    <h2>📌 Порядок сотрудничества</h2>
+                    <p>
+                        Мы перешли на единую систему обработки заявок. Теперь все предложения принимаются 
+                        <strong>исключительно</strong> через форму на сайте: <br>
+                        <a href="https://alexandrovsk.help.center/contact" target="_blank">alexandrovsk.help.center/contact</a>
+                    </p>
+                    <p class="small-note">* Комментарии в соцсетях для деловых предложений больше не используются.</p>
+                </section>
+            </div>
+
+            <footer class="post-footer">
+                <p><strong>Ориентировочная дата выхода:</strong> 27 или 30 марта 2026 г.</p>
             </footer>
-        </article>
-           </main>
-        <a class="read-more" href="news.html">← Назад к новостям</a>
-    </div>
-</section>
 
-<footer>
-    <span>© 2026 Архивы Александровского АО</span>
-    <span>
-        <a href="index.html">Главная</a>
-        <a href="https://alexandrovsk.help.center" target="_blank">Поддержка</a>
-    </span>
-</footer>
+        </article>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <img src="home-icon.png" alt="Лого">
+                    <h3>Архивы ААО</h3>
+                </div>
+                <p>Официальная база данных и новостной портал Александровского АО.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Разделы</h4>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="news.html">Все новости</a></li>
+                    <li><a href="https://alexandrovsk.help.center">Служба поддержки</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <p>Email: archive@alex-ao.ru</p>
+                <div class="social-icons">
+                    <a href="#" class="social-tag">Telegram</a>
+                    <a href="#" class="social-tag">VK</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Архивы Александровского АО. Все права защищены.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
-
